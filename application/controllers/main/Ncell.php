@@ -24,11 +24,11 @@ class Ncell extends CI_Controller
 		$this->load->view('sbtemplates/closetag');
 	}
 	public function index(){
-		//redirect('main/ncell/beranda/'.$nowdate);
 		$nowdate = date("Ymd");
-		echo($nowdate);
+		redirect('main/ncell/beranda/'.$nowdate);
 	}
-	public function beranda(){
+	public function beranda($nowdate = null){
+		if($nowdate == null) redirect('main/ncell/beranda/'.date("Ymd"));
 		$data['transaksi'] = $this->alldata->getallData($nowdate);
 		$data['judul'] = 'Beranda';
 		$libraryadd = ['jsextends/libberanda', 'jsextends/libberanda1'];

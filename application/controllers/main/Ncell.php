@@ -29,6 +29,7 @@ class Ncell extends CI_Controller
 	}
 	public function beranda($nowdate = null){
 		if($nowdate == null) redirect('main/ncell/beranda/'.date("Ymd"));
+		$data['tanggal'] = $this->uri->segment('4');
 		$data['transaksi'] = $this->alldata->getallData($nowdate);
 		$data['judul'] = 'Beranda';
 		$libraryadd = ['jsextends/libberanda', 'jsextends/libberanda1'];

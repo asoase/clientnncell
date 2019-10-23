@@ -59,8 +59,8 @@
 
 	<div class="row mb-3 justify-content-end">
 		<div class="btn-group" role="group" aria-label="Basic example">
-			<button type="button" class="btn btn-primary" id="lastweek" onclick="changeweek('<?= $transaksi['day']['lastweek'] ?>')">Minggu Sebelumnya</button>
-			<button type="button" class="btn btn-warning" id="nextweek" onclick="changeweek('<?= $transaksi['day']['nextweek'] ?>')">Minggu Selanjutnya</button>
+			<button type="button" class="btn btn-primary" id="lastweek" onclick="window.location.href='<?= base_url(); ?>main/ncell/beranda/<?= $transaksi['day']['lastweek']; ?>'">Minggu Sebelumnya</button>
+			<button type="button" class="btn btn-warning" id="nextweek" onclick="window.location.href='<?= base_url(); ?>main/ncell/beranda/<?= $transaksi['day']['nextweek']; ?>'">Minggu Selanjutnya</button>
 		</div>
 	</div>
 

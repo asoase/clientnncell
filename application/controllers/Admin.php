@@ -10,6 +10,17 @@ class Admin extends CI_Controller
 		date_default_timezone_set("Asia/Bangkok");
 	}
 
+	public function index(){
+		redirect('admin/beranda/'.date("Ymd"));
+	}
+	public function beranda($date = null){
+		if($date == null) redirect('admin/beranda/'.date("Ymd"));
+		echo "admin";
+	}
+	public function login(){
+		echo "login";
+	}
+
 	private function pagetemplate($page, $data, $addlibrary = []){
 		$this->load->view('sbtemplates/header', $data);
 		$this->load->view('sbtemplates/sidebar', $data);
@@ -23,12 +34,12 @@ class Admin extends CI_Controller
 		}
 		$this->load->view('sbtemplates/closetag');
 	}
-	public function index(){
+	public function index1(){
 		$nowdate = date("Ymd");
 		redirect('admin/beranda/'.$nowdate);
 	}
-	public function beranda($nowdate = null){
-		if($nowdate == null) redirect('admin/beranda'.date("Ymd"));
+	public function beranda1($nowdate = null){
+		if($nowdate == null) redirect('admin/beranda/'.date("Ymd"));
 		$data['transaksi'] = $this->alldata->getallData($nowdate);
 		$data['judul'] = 'Beranda';
 		$libraryadd = ['jsextends/libberanda', 'jsextends/libberanda1'];
@@ -52,7 +63,6 @@ class Admin extends CI_Controller
 				case 'hin':
 				$data['hpin'] = $this->alldata->getHpin($id);
 				$data['selection'] = $this->getselected($data['hpin']);
-				// $this->getselected($data['hpin']);
 				$this->load->view('sbmain/bodyform/formhpin', $data);
 				break;
 				case 'hout':

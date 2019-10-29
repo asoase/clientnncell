@@ -18,15 +18,10 @@ class Admin extends CI_Controller
         if ($date == null) {
             redirect('admin/beranda/'.date("Ymd"));
         }
-        echo FCPATH;
-        echo "<br>";
-        echo SELF;
-        echo "<br>";
-        echo BASEPATH;
-        echo "<br>";
-        echo APPPATH;
-        echo "<br>";
-        echo FCPATH;
+        $data['CSSPATH'] = base_url().'assets/css/';
+        $data['JSPATH'] = base_url().'assets/js/';
+        $data['IMGPATH'] = base_url().'assets/img/';
+        $this->load->view('admin/beranda', $data);
     }
     public function login()
     {

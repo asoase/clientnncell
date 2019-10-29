@@ -20,6 +20,9 @@ class Admin extends CI_Controller
 	public function login(){
 		echo "login";
 	}
+	public function tambahadmin(){
+		echo "tambah admin";
+	}
 
 	private function pagetemplate($page, $data, $addlibrary = []){
 		$this->load->view('sbtemplates/header', $data);

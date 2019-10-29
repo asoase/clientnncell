@@ -3,19 +3,20 @@
 
 	function changedateajax(){
 		let datapost = {tanggal: dateinput, password: 'jamah0110'};
-		$.ajax({
-			type: "POST",
-			url: "<?php echo base_url(); ?>" + "/main/ncell/detailberanda/",
-			data: datapost,
-			success: function(dataout, textStatus, jQxhr){
-				$('#detailtransaksi').html(dataout);
-			},
-			error: function(jqXhr, textStatus, errorThrown){
-				alert(jqXhr);
-				alert(textStatus);
-				alert(errorThrown);
-			}
-		});
+		window.location = "<?php echo base_url(); ?>"+"main/ncell/beranda/"+dateinput;
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "<?php echo base_url(); ?>" + "/main/ncell/detailberanda/",
+		// 	data: datapost,
+		// 	success: function(dataout, textStatus, jQxhr){
+		// 		$('#detailtransaksi').html(dataout);
+		// 	},
+		// 	error: function(jqXhr, textStatus, errorThrown){
+		// 		alert(jqXhr);
+		// 		alert(textStatus);
+		// 		alert(errorThrown);
+		// 	}
+		// });
 	}
 	$.fn.myFunction = function() { 
 		changedateajax();

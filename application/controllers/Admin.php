@@ -18,14 +18,23 @@ class Admin extends CI_Controller
         if ($date == null) {
             redirect('admin/beranda/'.date("Ymd"));
         }
-        $data['CSSPATH'] = base_url().'assets/css/';
-        $data['JSPATH'] = base_url().'assets/js/';
+        $data['CSSPATH'] = base_url().'assets/css/admin/beranda.css';
+        $data['JSPATH'] = base_url().'assets/js/admin/beranda.js';
         $data['IMGPATH'] = base_url().'assets/img/';
+        $data['title'] = 'Admin';
+        $this->load->view('templates/navbar', $data);
         $this->load->view('admin/beranda', $data);
+        $this->load->view('templates/closing', $data);
     }
     public function login()
     {
-        echo "login";
+        $data['CSSPATH'] = base_url().'assets/css/admin/login.css';
+        $data['JSPATH'] = base_url().'assets/js/admin/login.js';
+        $data['IMGPATH'] = base_url().'assets/img/';
+        $data['title'] = 'Login';
+        $this->load->view('templates/navbar', $data);
+        $this->load->view('admin/login', $data);
+        $this->load->view('templates/closing', $data);
     }
     public function tambahadmin()
     {
@@ -78,26 +87,26 @@ class Admin extends CI_Controller
             $code = $this->input->post('code');
             $isremove = $this->input->post('isremove');
             switch ($code) {
-                case 'hin':
-                $data['hpin'] = $this->alldata->getHpin($id);
-                $data['selection'] = $this->getselected($data['hpin']);
-                $this->load->view('sbmain/bodyform/formhpin', $data);
-                break;
-                case 'hout':
-                echo "hp out";
-                break;
-                case 'servout':
-                echo "servis out";
-                break;
-                case 'servreturn':
-                echo "servis return";
-                break;
-                case 'acc':
-                echo "accesoris";
-                break;
-                default:
-                break;
-            }
+    case 'hin':
+    $data['hpin'] = $this->alldata->getHpin($id);
+    $data['selection'] = $this->getselected($data['hpin']);
+    $this->load->view('sbmain/bodyform/formhpin', $data);
+    break;
+    case 'hout':
+    echo "hp out";
+    break;
+    case 'servout':
+    echo "servis out";
+    break;
+    case 'servreturn':
+    echo "servis return";
+    break;
+    case 'acc':
+    echo "accesoris";
+    break;
+    default:
+    break;
+}
         }
     }
     private function getselected($inputdata)
@@ -108,37 +117,37 @@ class Admin extends CI_Controller
         $allselect['jaringan'][3] = '';
         $allselect['jaringan'][4] = '';
         switch ($inputdata['jaringan']) {
-            case '5G':
-            $allselect['jaringan'][0] = 'selected';
-            break;
-            case '4G':
-            $allselect['jaringan'][1] = 'selected';
-            break;
-            case '3G':
-            $allselect['jaringan'][2] = 'selected';
-            break;
-            case 'E':
-            $allselect['jaringan'][3] = 'selected';
-            break;
-            case 'TANPA SIM':
-            $allselect['jaringan'][4] = 'selected';
-            break;
-        }
+case '5G':
+$allselect['jaringan'][0] = 'selected';
+break;
+case '4G':
+$allselect['jaringan'][1] = 'selected';
+break;
+case '3G':
+$allselect['jaringan'][2] = 'selected';
+break;
+case 'E':
+$allselect['jaringan'][3] = 'selected';
+break;
+case 'TANPA SIM':
+$allselect['jaringan'][4] = 'selected';
+break;
+}
 
         $allselect['garansi'][0] = '';
         $allselect['garansi'][1] = '';
         $allselect['garansi'][2] = '';
         switch ($inputdata['garansi']) {
-            case 'tidak ada':
-            $allselect['garansi'][0] = 'selected';
-            break;
-            case 'distributor':
-            $allselect['garansi'][1] = 'selected';
-            break;
-            case 'resmi':
-            $allselect['garansi'][2] = 'selected';
-            break;
-        }
+case 'tidak ada':
+$allselect['garansi'][0] = 'selected';
+break;
+case 'distributor':
+$allselect['garansi'][1] = 'selected';
+break;
+case 'resmi':
+$allselect['garansi'][2] = 'selected';
+break;
+}
 
         $allselect['ram'][0] = '';
         $allselect['ram'][1] = '';
@@ -148,28 +157,28 @@ class Admin extends CI_Controller
         $allselect['ram'][5] = '';
         $allselect['ram'][6] = '';
         switch ($inputdata['ram']) {
-            case '0.25':
-            $allselect['ram'][0] = 'selected';
-            break;
-            case '0.5':
-            $allselect['ram'][1] = 'selected';
-            break;
-            case '1':
-            $allselect['ram'][2] = 'selected';
-            break;
-            case '1.5':
-            $allselect['ram'][3] = 'selected';
-            break;
-            case '2':
-            $allselect['ram'][4] = 'selected';
-            break;
-            case '3':
-            $allselect['ram'][5] = 'selected';
-            break;
-            case '4':
-            $allselect['ram'][6] = 'selected';
-            break;
-        }
+case '0.25':
+$allselect['ram'][0] = 'selected';
+break;
+case '0.5':
+$allselect['ram'][1] = 'selected';
+break;
+case '1':
+$allselect['ram'][2] = 'selected';
+break;
+case '1.5':
+$allselect['ram'][3] = 'selected';
+break;
+case '2':
+$allselect['ram'][4] = 'selected';
+break;
+case '3':
+$allselect['ram'][5] = 'selected';
+break;
+case '4':
+$allselect['ram'][6] = 'selected';
+break;
+}
 
         $allselect['rom'][0] = '';
         $allselect['rom'][1] = '';
@@ -177,22 +186,22 @@ class Admin extends CI_Controller
         $allselect['rom'][3] = '';
         $allselect['rom'][4] = '';
         switch ($inputdata['rom']) {
-            case '4':
-            $allselect['rom'][0] = 'selected';
-            break;
-            case '8':
-            $allselect['rom'][1] = 'selected';
-            break;
-            case '16':
-            $allselect['rom'][2] = 'selected';
-            break;
-            case '32':
-            $allselect['rom'][3] = 'selected';
-            break;
-            case '64':
-            $allselect['rom'][4] = 'selected';
-            break;
-        }
+case '4':
+$allselect['rom'][0] = 'selected';
+break;
+case '8':
+$allselect['rom'][1] = 'selected';
+break;
+case '16':
+$allselect['rom'][2] = 'selected';
+break;
+case '32':
+$allselect['rom'][3] = 'selected';
+break;
+case '64':
+$allselect['rom'][4] = 'selected';
+break;
+}
 
         $allselect['kelengkapan'][0] = '';
         $allselect['kelengkapan'][1] = '';
@@ -200,22 +209,22 @@ class Admin extends CI_Controller
         $allselect['kelengkapan'][3] = '';
         $allselect['kelengkapan'][4] = '';
         switch ($inputdata['kelengkapan']) {
-            case 'hp dus cas headset':
-            $allselect['kelengkapan'][0] = 'selected';
-            break;
-            case 'hp dus cas':
-            $allselect['kelengkapan'][1] = 'selected';
-            break;
-            case 'hp dus':
-            $allselect['kelengkapan'][2] = 'selected';
-            break;
-            case 'hp cas':
-            $allselect['kelengkapan'][3] = 'selected';
-            break;
-            case 'hp':
-            $allselect['kelengkapan'][4] = 'selected';
-            break;
-        }
+case 'hp dus cas headset':
+$allselect['kelengkapan'][0] = 'selected';
+break;
+case 'hp dus cas':
+$allselect['kelengkapan'][1] = 'selected';
+break;
+case 'hp dus':
+$allselect['kelengkapan'][2] = 'selected';
+break;
+case 'hp cas':
+$allselect['kelengkapan'][3] = 'selected';
+break;
+case 'hp':
+$allselect['kelengkapan'][4] = 'selected';
+break;
+}
         return $allselect;
     }
     public function cari($keyword = null)

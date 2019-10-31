@@ -17,7 +17,7 @@ class Ncell extends CI_Controller
         $this->load->view($page, $data);
         $this->load->view('sbtemplates/footer', $data);
         if (sizeof($addlibrary) > 0) {
-            foreach ($addlibrary as  $value) {
+            foreach ($addlibrary as $value) {
                 $this->load->view($value, $data);
             }
         }
@@ -26,23 +26,23 @@ class Ncell extends CI_Controller
     public function index()
     {
         $nowdate = date("Ymd");
-        redirect('main/ncell/beranda/'.$nowdate);
+        redirect('main/ncell/beranda/' . $nowdate);
     }
     public function beranda($nowdate = null)
     {
         if ($nowdate == null) {
-            redirect('main/ncell/beranda/'.date("Ymd"));
+            redirect('main/ncell/beranda/' . date("Ymd"));
         }
         $data['transaksi'] = $this->alldata->getallData($nowdate);
-        $data['judul'] = 'Beranda';
-        $libraryadd = ['jsextends/libberanda', 'jsextends/libberanda1'];
+        $data['judul']     = 'Beranda';
+        $libraryadd        = ['jsextends/libberanda', 'jsextends/libberanda1'];
         $this->pagetemplate('sbmain/sbberanda', $data, $libraryadd);
     }
     public function detailberanda()
     {
         $password = $this->input->post('password');
         if ($password == 'jamah0110') {
-            $tanggal = $this->input->post('tanggal');
+            $tanggal           = $this->input->post('tanggal');
             $data['transaksi'] = $this->alldata->getallData(date($tanggal));
             $this->load->view('sbmain/berandadetail', $data);
         }
@@ -51,30 +51,30 @@ class Ncell extends CI_Controller
     {
         $password = $this->input->post('password');
         if ($password == 'jamah0110') {
-            $id = $this->input->post('id');
-            $code = $this->input->post('code');
+            $id       = $this->input->post('id');
+            $code     = $this->input->post('code');
             $isremove = $this->input->post('isremove');
             switch ($code) {
                 case 'hin':
-                $data['hpin'] = $this->alldata->getHpin($id);
-                $data['selection'] = $this->getselected($data['hpin']);
-                // $this->getselected($data['hpin']);
-                $this->load->view('sbmain/bodyform/formhpin', $data);
-                break;
+                    $data['hpin']      = $this->alldata->getHpin($id);
+                    $data['selection'] = $this->getselected($data['hpin']);
+                    // $this->getselected($data['hpin']);
+                    $this->load->view('sbmain/bodyform/formhpin', $data);
+                    break;
                 case 'hout':
-                echo "hp out";
-                break;
+                    echo "hp out";
+                    break;
                 case 'servout':
-                echo "servis out";
-                break;
+                    echo "servis out";
+                    break;
                 case 'servreturn':
-                echo "servis return";
-                break;
+                    echo "servis return";
+                    break;
                 case 'acc':
-                echo "accesoris";
-                break;
+                    echo "accesoris";
+                    break;
                 default:
-                break;
+                    break;
             }
         }
     }
@@ -87,20 +87,20 @@ class Ncell extends CI_Controller
         $allselect['jaringan'][4] = '';
         switch ($inputdata['jaringan']) {
             case '5G':
-            $allselect['jaringan'][0] = 'selected';
-            break;
+                $allselect['jaringan'][0] = 'selected';
+                break;
             case '4G':
-            $allselect['jaringan'][1] = 'selected';
-            break;
+                $allselect['jaringan'][1] = 'selected';
+                break;
             case '3G':
-            $allselect['jaringan'][2] = 'selected';
-            break;
+                $allselect['jaringan'][2] = 'selected';
+                break;
             case 'E':
-            $allselect['jaringan'][3] = 'selected';
-            break;
+                $allselect['jaringan'][3] = 'selected';
+                break;
             case 'TANPA SIM':
-            $allselect['jaringan'][4] = 'selected';
-            break;
+                $allselect['jaringan'][4] = 'selected';
+                break;
         }
 
         $allselect['garansi'][0] = '';
@@ -108,14 +108,14 @@ class Ncell extends CI_Controller
         $allselect['garansi'][2] = '';
         switch ($inputdata['garansi']) {
             case 'tidak ada':
-            $allselect['garansi'][0] = 'selected';
-            break;
+                $allselect['garansi'][0] = 'selected';
+                break;
             case 'distributor':
-            $allselect['garansi'][1] = 'selected';
-            break;
+                $allselect['garansi'][1] = 'selected';
+                break;
             case 'resmi':
-            $allselect['garansi'][2] = 'selected';
-            break;
+                $allselect['garansi'][2] = 'selected';
+                break;
         }
 
         $allselect['ram'][0] = '';
@@ -127,26 +127,26 @@ class Ncell extends CI_Controller
         $allselect['ram'][6] = '';
         switch ($inputdata['ram']) {
             case '0.25':
-            $allselect['ram'][0] = 'selected';
-            break;
+                $allselect['ram'][0] = 'selected';
+                break;
             case '0.5':
-            $allselect['ram'][1] = 'selected';
-            break;
+                $allselect['ram'][1] = 'selected';
+                break;
             case '1':
-            $allselect['ram'][2] = 'selected';
-            break;
+                $allselect['ram'][2] = 'selected';
+                break;
             case '1.5':
-            $allselect['ram'][3] = 'selected';
-            break;
+                $allselect['ram'][3] = 'selected';
+                break;
             case '2':
-            $allselect['ram'][4] = 'selected';
-            break;
+                $allselect['ram'][4] = 'selected';
+                break;
             case '3':
-            $allselect['ram'][5] = 'selected';
-            break;
+                $allselect['ram'][5] = 'selected';
+                break;
             case '4':
-            $allselect['ram'][6] = 'selected';
-            break;
+                $allselect['ram'][6] = 'selected';
+                break;
         }
 
         $allselect['rom'][0] = '';
@@ -156,20 +156,20 @@ class Ncell extends CI_Controller
         $allselect['rom'][4] = '';
         switch ($inputdata['rom']) {
             case '4':
-            $allselect['rom'][0] = 'selected';
-            break;
+                $allselect['rom'][0] = 'selected';
+                break;
             case '8':
-            $allselect['rom'][1] = 'selected';
-            break;
+                $allselect['rom'][1] = 'selected';
+                break;
             case '16':
-            $allselect['rom'][2] = 'selected';
-            break;
+                $allselect['rom'][2] = 'selected';
+                break;
             case '32':
-            $allselect['rom'][3] = 'selected';
-            break;
+                $allselect['rom'][3] = 'selected';
+                break;
             case '64':
-            $allselect['rom'][4] = 'selected';
-            break;
+                $allselect['rom'][4] = 'selected';
+                break;
         }
 
         $allselect['kelengkapan'][0] = '';
@@ -179,20 +179,20 @@ class Ncell extends CI_Controller
         $allselect['kelengkapan'][4] = '';
         switch ($inputdata['kelengkapan']) {
             case 'hp dus cas headset':
-            $allselect['kelengkapan'][0] = 'selected';
-            break;
+                $allselect['kelengkapan'][0] = 'selected';
+                break;
             case 'hp dus cas':
-            $allselect['kelengkapan'][1] = 'selected';
-            break;
+                $allselect['kelengkapan'][1] = 'selected';
+                break;
             case 'hp dus':
-            $allselect['kelengkapan'][2] = 'selected';
-            break;
+                $allselect['kelengkapan'][2] = 'selected';
+                break;
             case 'hp cas':
-            $allselect['kelengkapan'][3] = 'selected';
-            break;
+                $allselect['kelengkapan'][3] = 'selected';
+                break;
             case 'hp':
-            $allselect['kelengkapan'][4] = 'selected';
-            break;
+                $allselect['kelengkapan'][4] = 'selected';
+                break;
         }
         return $allselect;
     }
@@ -214,7 +214,7 @@ class Ncell extends CI_Controller
     public function rekapdata()
     {
         $data['judul'] = 'Rekap Data';
-        $libraryadd = ['jsextends/librekap'];
+        $libraryadd    = ['jsextends/librekap'];
         $this->pagetemplate('sbmain/sbrekap', $data, $libraryadd);
     }
     public function tambahdata()

@@ -14,7 +14,7 @@ class Beranda extends CI_Controller
 		$data['IMGPATH'] = base_url().'assets/img/';
 		$data['title'] = 'Beranda';
 		$this->load->view('templates/navbar', $data);
-		$this->load->view('beranda/beranda', $data);
+		$this->load->view('beranda/berandaberanda', $data);
 		$this->load->view('templates/closing', $data);
 	}
 

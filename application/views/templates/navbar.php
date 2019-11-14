@@ -15,7 +15,7 @@
 	<title><?= $title; ?></title>
 </head>
 
-<body class="bg-light">
+<body>
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-dark rounded-bottom shadow">
 		<div class="container">

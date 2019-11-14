@@ -1,0 +1,31 @@
+body{
+	background-color: #a1ccff;
+}
+#searchinput{
+	background-color: transparent;
+	border: outset;
+	border-width: 1px;
+	border-color: #9259d9;
+	border-radius: 5px;
+}
+#bottomfooter{
+	position: relative;
+	top: 27vh;
+}
+.cover-traksaksi{
+	background-color: #d6e9ff;
+	border-radius: 25px 25px 5px 5px;
+}
+#hari{
+	background-color: #f2fff8;
+}
+#tombol-accordion{
+	background-color: #edfcf9;
+}
+#label-hari{
+	background-color: #fcfbdc;
+}
+.cover-detail-transaksi{
+	background-color: #c9ffef;
+	border-radius: 10px;
+}

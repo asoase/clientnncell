@@ -13,6 +13,7 @@ class Beranda extends CI_Controller
 		$data['JSPATH'] = base_url().'assets/js/beranda/beranda.js';
 		$data['IMGPATH'] = base_url().'assets/img/';
 		$data['title'] = 'Beranda';
+		$data['headeraktif'] = 1;
 		$this->load->view('templates/navbar', $data);
 		$this->load->view('beranda/berandaberanda', $data);
 		$this->load->view('templates/closing', $data);

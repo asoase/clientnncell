@@ -15,13 +15,18 @@ class Admin extends CI_Controller
     }
     public function beranda($date = null)
     {
-        if ($date == null) {
-            redirect('admin/beranda/' . date("Ymd"));
+        if($this->input->get('ketanggal') == null){
+            if ($date == null)
+                redirect('admin/beranda/' . date("Ymd"));
+        }
+        else {
+            redirect('admin/beranda/'.$this->input->get('ketanggal'));
         }
         $data['CSSPATH'] = base_url() . 'assets/css/admin/adminberanda.css';
         $data['JSPATH']  = base_url() . 'assets/js/admin/adminberanda.js';
         $data['IMGPATH'] = base_url() . 'assets/img/';
         $data['title']   = 'Admin';
+        $data['headeraktif'] = 3;
         $data['data'] = $this->Data->dataOneWeek($date);
         $this->load->view('templates/navbar', $data);
         $this->load->view('admin/adminberanda', $data);
@@ -33,6 +38,7 @@ class Admin extends CI_Controller
         $data['JSPATH']  = base_url() . 'assets/js/admin/adminlogin.js';
         $data['IMGPATH'] = base_url() . 'assets/img/';
         $data['title']   = 'Login';
+        $data['headeraktif'] = 3;
         $this->load->view('templates/navbar', $data);
         $this->load->view('admin/adminlogin', $data);
         $this->load->view('templates/closing', $data);

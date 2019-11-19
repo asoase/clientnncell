@@ -30,6 +30,7 @@ class Data extends CI_model
 			$result['dayname'] = $this->adminberandalib->getDayName();
 			$result['shortbydate'] = $this->adminberandalib->shortByDate($result);
 			$result['rekapitem'] = Array('HP Masuk', 'HP Terjual', 'Servis Selesai', 'Servis Return', 'Accesoris');
+			$result['page'] = Array(base_url('admin/beranda/'.$result['day']['lastweek']), base_url('admin/beranda/'.$result['day']['nextweek']), base_url('admin/beranda/'.date("Ymd")));
 			$result['encoded'] = json_encode($result);
 			return $result;
 		}

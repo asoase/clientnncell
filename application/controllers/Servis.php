@@ -14,6 +14,7 @@ class Servis extends CI_Controller
 		$data['JSPATH'] = base_url().'assets/js/servis/beranda.js';
 		$data['IMGPATH'] = base_url().'assets/img/';
 		$data['title'] = 'Servis';
+		$data['headeraktif'] = 1;
 		$this->load->view('templates/navbar', $data);
 		$this->load->view('servis/beranda', $data);
 		$this->load->view('templates/closing', $data);

@@ -1,3 +1,16 @@
+/* Bootstrap 4 breakpoints
+/* Small devices (landscape phones, 544px and up) */
+*{
+	font-size: 14px;
+}
+@media (min-width: 440px) {  
+	* {font-size:1rem;}
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {  
+	* {font-size:1rem;}
+}
 body{
 	background-color: #d9fbff;
 }
@@ -5,7 +18,7 @@ body{
 	border-radius: 20px 0px 0px 20px!important;
 }
 .br20{
-	border-radius: 0px 20px 20px 0px !important;
+	border-radius: 0px 20px 20px 0px!important;
 }
 #mainsearchinput{
 	background-color: transparent;
@@ -52,7 +65,7 @@ button.bt-detail-hari:focus{
 	outline: none;
 }
 button.bt-detail-hari:active {
-	transform: scale(0.96);
+	transform: scale(0.99);
 }
 a.bt-accordion{
 	color: inherit;

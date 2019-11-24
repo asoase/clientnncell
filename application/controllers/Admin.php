@@ -43,11 +43,37 @@ class Admin extends CI_Controller
         $this->load->view('admin/adminlogin', $data);
         $this->load->view('templates/closing', $data);
     }
+    public function isidetail($transaksitype = null, $iditem = null){
+        $username = $this->input->post('username');
+        if($username != 'isidetail9009'){
+            echo 'kamu tidak diijinkan mengakses halaman ini';
+        } else{
+            switch ($transaksitype) {
+                case '0':
+                echo "HP MASUK ".$iditem;
+                break;
+                case '1':
+                echo "HP TERJUAL ".$iditem;
+                break;
+                case '2':
+                echo "SERVIS SELESAI ".$iditem;
+                break;
+                case '3':
+                echo "SERVIS RETURN ".$iditem;
+                break;
+                case '4':
+                echo "ACCESORIS ".$iditem;
+                break;
+                default:
+                break;
+            }
+        }
+        // $this->load->view('admin/detailitemtransaksi/detailhpmasuk', $username);
+    }
     public function tambahadmin()
     {
         echo FCPATH();
     }
-
     private function pagetemplate($page, $data, $addlibrary = [])
     {
         $this->load->view('sbtemplates/header', $data);

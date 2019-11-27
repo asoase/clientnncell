@@ -19,11 +19,6 @@
   </form>
 </nav>
 
-<div class="container mt-3">
-  <div class="row justify-content-end">
-  </div>
-</div>
-
 <!-- detail transaksi -->
 <div class="container-fluid mt-4">
   <div class="row no-gutters justify-content-center">
@@ -41,7 +36,6 @@
             <div class="mt-3">
               <form action="" method="GET">
                 <div class="input-group">
-                  <!-- <label for="mainsearchinput" class="mr-2 col-form-label">Masukkan Tanggal</label> -->
                   <input type="date" class="bl20" placeholder="Masukkan tanggal" id="mainsearchinput" name="ketanggal" required="true">
                   <div class="input-group-append">
                     <button class="btn btn-primary br20" type="submit" id="mainsubmit"><i class="fas fa-lg fa-chevron-circle-right"></i></button>
@@ -64,7 +58,19 @@
     <div class="col-lg-4 col-12 mx-2 my-2">
       <div class="cover-terluar">
         <div class="judul-list1 font-weight-bold">
-          Bonus
+          Transaksi
+          <div class="my-0 font-weight-light">
+            <div class="container-fluid">
+              <div class="row justify-content-end">
+                <div class="col-xs-12 mx-2">
+                  Minggu <?=$data['allday'][0];?>
+                </div>
+                <div class="col-xs-12 mx-2">
+                  Sabtu <?=$data['allday'][6];?>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="accordion" id="accordion-bonus">
           <?php for ($i=0; $i < 2; $i++) { ?>
@@ -77,15 +83,33 @@
                 <div class="tabel-hari mt-4">
                   <div class="judul-list1">
                     <div>
-                      <p>
-                        HP MASUK : <?= $data[$sales]['bhpin']['bhpintotal'].' (return '.$data[$sales]['bhpin']['bhpinreturn'].')'; ?>
-                      </p>
-                      <p>
-                        HP TERJUAL : <?= $data[$sales]['bhpout']['bhpouttotal'].' (return '.$data[$sales]['bhpout']['bhpoutreturn'].')'; ?>
-                      </p>
-                      <p>
-                        SERVIS : <?= $data[$sales]['bservis']['bservistotal'].' (return '.$data[$sales]['bservis']['bservisreturn'].')'; ?>
-                      </p>
+                      <?php if ($data[$sales]['bhpin']['bhpinreturn'] > 0) { ?>
+                        <p>
+                          HP MASUK : <?= $data[$sales]['bhpin']['bhpintotal'].' (return '.$data[$sales]['bhpin']['bhpinreturn'].')'; ?>
+                        </p>
+                      <?php } else{ ?>
+                        <p>
+                          HP MASUK : <?= $data[$sales]['bhpin']['bhpintotal']; ?>
+                        </p>
+                      <?php } ?>
+                      <?php if ($data[$sales]['bhpout']['bhpoutreturn'] > 0) { ?>
+                        <p>
+                          HP TERJUAL : <?= $data[$sales]['bhpout']['bhpouttotal'].' (return '.$data[$sales]['bhpout']['bhpoutreturn'].')'; ?>
+                        </p>
+                      <?php } else{ ?>
+                        <p>
+                          HP TERJUAL : <?= $data[$sales]['bhpout']['bhpouttotal']; ?>
+                        </p>
+                      <?php } ?>
+                      <?php if ($data[$sales]['bservis']['bservisreturn'] > 0) { ?>
+                        <p>
+                          SERVIS : <?= $data[$sales]['bservis']['bservistotal'].' (return '.$data[$sales]['bservis']['bservisreturn'].')'; ?>
+                        </p>
+                      <?php } else{ ?>
+                        <p>
+                          SERVIS : <?= $data[$sales]['bservis']['bservistotal']; ?>
+                        </p>
+                      <?php } ?>
                     </div>
                   </div>
                   <div class="judul-list1">
@@ -231,18 +255,6 @@
       <div class="cover-terluar">
         <div class="judul-list1 font-weight-bold">
           Detail Transaksi
-          <div class="my-0 font-weight-light">
-            <div class="container-fluid">
-              <div class="row justify-content-end">
-                <div class="col-xs-12 mx-2">
-                  Minggu <?=$data['allday'][0];?>
-                </div>
-                <div class="col-xs-12 mx-2">
-                  Sabtu <?=$data['allday'][6];?>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- menampilkan hari menggunakan accordion -->
         <div class="accordion" id="accordion-hari">

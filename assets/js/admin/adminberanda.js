@@ -23,6 +23,7 @@
  	let transaksi = $(this).data('transaksi');
  	let id = $(this).data('iditem');
  	let urlajax = base_url+'admin/isidetail/'+transaksi+'/'+id;
+ 	detailloading();
  	detailajax(urlajax);
  });
 
@@ -31,9 +32,6 @@
  		url: urlajax,
  		data: {username: 'isidetail9009'},
  		type: 'POST',
- 		beforeSend: function(){
- 			detailloading();
- 		},
  		success: function(data){
  			isidetail(data);
  		}

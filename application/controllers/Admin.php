@@ -50,25 +50,44 @@ class Admin extends CI_Controller
         } else{
             switch ($transaksitype) {
                 case '0':
-                echo "HP MASUK ".$iditem;
+                $data['namatransaksi'] = 'HP MASUK';
+                $data['detailitem'] = $this->Data->getHpin($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailhpmasuk', $data);
                 break;
                 case '1':
-                echo "HP TERJUAL ".$iditem;
+                $data['namatransaksi'] = 'HP TERJUAL';
+                $data['detailitem'] = $this->Data->getHpout($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailhpterjual', $data);
                 break;
                 case '2':
-                echo "SERVIS SELESAI ".$iditem;
+                $data['namatransaksi'] = 'SERVIS SELESAI';
+                $data['detailitem'] = $this->Data->getServisout($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailservisselesai', $data);
                 break;
                 case '3':
-                echo "SERVIS RETURN ".$iditem;
+                $data['namatransaksi'] = 'SERVIS RETURN';
+                $data['detailitem'] = $this->Data->getServisreturn($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailservisreturn', $data);
                 break;
                 case '4':
-                echo "ACCESORIS ".$iditem;
+                $data['namatransaksi'] = 'ACCESORIS';
+                $data['detailitem'] = $this->Data->getAccesoris($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailaccesoris', $data);
                 break;
                 default:
                 break;
             }
         }
-        // $this->load->view('admin/detailitemtransaksi/detailhpmasuk', $username);
     }
     public function tambahadmin()
     {

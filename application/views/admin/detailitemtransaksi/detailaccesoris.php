@@ -5,41 +5,17 @@
 	</button>
 </div>
 <div class="modal-body">
-	<h5 class="modal-title text-center mb-2"><?= $detailitem['merk'].' '.$detailitem['tipe'].' ('.$detailitem['imei'].')';?></h5>
+	<h5 class="modal-title text-center mb-2"><?= $detailitem['nama'];?></h5>
 	<div class="table-responsive">
 		<table class="table table-sm table-bordered table-striped">
 			<tbody>
 				<tr>
-					<th scope="row" class="align-baseline">Tanggal Masuk</th>
+					<th scope="row" class="align-baseline">Tanggal</th>
 					<td class="align-baseline"><?= $detailitem['tanggal']; ?></td>
-				</tr>
-				<tr>
-					<th scope="row" class="align-baseline">RAM/ROM</th>
-					<td><?= $detailitem['ram'].'/'.$detailitem['rom']; ?></td>
-				</tr>
-				<tr>
-					<th scope="row" class="align-baseline">Jaringan</th>
-					<td><?= $detailitem['jaringan']; ?></td>
-				</tr>
-				<tr>
-					<th scope="row" class="align-baseline">Garansi</th>
-					<td><?= $detailitem['garansi']; ?></td>
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Harga</th>
 					<td><?= 'Rp. '.number_format($detailitem['harga'], 0, '', '.'); ?></td>
-				</tr>
-				<tr>
-					<th scope="row" class="align-baseline">Kelengkapan</th>
-					<td><?= $detailitem['kelengkapan']; ?></td>
-				</tr>
-				<tr>
-					<th scope="row" class="align-baseline">Kerusakan</th>
-					<td><?= $detailitem['kerusakan']; ?></td>
-				</tr>
-				<tr>
-					<th scope="row" class="align-baseline">Sales</th>
-					<td><?= $detailitem['sales']; ?></td>
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Catatan</th>

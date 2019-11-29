@@ -3,6 +3,7 @@
 class AdminBerandaLib{
 
 	private $rekapitem = array('vhpin', 'vhpout', 'vservisdone', 'vservisreturn', 'vacc');
+	private $itemtoselect = array('jaringan', 'garansi', 'ram', 'rom', 'kelengkapan', 'sales');
 
 	function getDayName(){
 		$dayname = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -315,6 +316,24 @@ class AdminBerandaLib{
 		return $bonus;
 	}
 
+	function getselectindex($data){
+		$returndata = array(0, 0, 0, 0, 0, 0); // jaringan garansi ram rom kelengkapan sales
+		for ($i= 0; $i < 6; $i++) {
+			$index = 0;
+			$ismatch = false;
+			foreach ($data['menuadmin'][$this->itemtoselect[$i]] as $value) {
+				if (!$ismatch) {
+					if($data['detailitem'][$this->itemtoselect[$i]] == $value[$this->itemtoselect[$i]])
+					{
+						$returndata[$i] = $index;
+						$ismatch = true;
+					}
+				}
+				$index += 1;
+			}
+		}
+		return $returndata;
+	}
 }
 
 ?>

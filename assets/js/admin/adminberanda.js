@@ -19,11 +19,10 @@
  	$('.headeraktif li:nth-child('+children+')').addClass('active');
  }).call(this);
 
- $('button.bt-detail-hari').click(function(){
+ $('button.bt-detail-hari').on('click', function(event){
  	let transaksi = $(this).data('transaksi');
  	let id = $(this).data('iditem');
  	let urlajax = base_url+'admin/isidetail/'+transaksi+'/'+id;
- 	detailloading();
  	detailajax(urlajax);
  });
 
@@ -32,13 +31,19 @@
  		url: urlajax,
  		data: {username: 'isidetail9009'},
  		type: 'POST',
+ 		beforeSend: function(){
+ 			nowloading();
+ 		},
  		success: function(data){
  			isidetail(data);
+ 		},
+ 		complete: function(){
+ 			initedit();
  		}
  	});
  }
 
- function detailloading(){
+ function nowloading(){
  	htmlloading = 
  	`
  	<div class="text-center">
@@ -52,4 +57,43 @@
 
  function isidetail(data){
  	$('div.isidetail').html(data);
+ }
+
+ function initedit(){
+ 	$('.isidetail .modal-footer .edititem').click(function(){
+ 		let transaksi = $(this).data('tipetransaksi');
+ 		let id = $(this).data('iditem');
+ 		let urlajax = base_url+'admin/editdetail/'+transaksi+'/'+id;
+ 		editajax(urlajax);
+ 	});
+ }
+
+ function editajax(urlajax){
+ 	$.ajax({
+ 		url: urlajax,
+ 		data: {username: 'editdetail9009'},
+ 		type: 'POST',
+ 		beforeSend: function(){
+ 			nowloading();
+ 		},
+ 		success: function(data){
+ 			isidetail(data);
+ 		},
+ 		complete: function(data){
+ 			initsubmitedit();
+ 		}
+ 	});
+ }
+
+ // untuk mendapatkan nilai
+ function initsubmitedit(){
+ 	$('.isidetail .modal-footer .submitedititem').click(function(){
+ 		alert('ladalah');
+ 	});
+ 	// let selectmenu = $('.isidetail .modal-body .table-responsive .table-striped').find('select#selectFormsm'){
+ 	// 	for (var i = 0; i < 6; i++) {
+ 	// 		let indexselect = selectmenu.eq(i).data('indexselect');
+ 	// 		selectmenu.eq(i).find('option:eq(indexselect)').attr('selected', true);
+ 	// 	}
+ 	// }
  }

@@ -6,6 +6,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Data');
+        $this->load->model('Menu_admin', 'menuadmin');
         date_default_timezone_set("Asia/Bangkok");
     }
 
@@ -55,6 +56,55 @@ class Admin extends CI_Controller
                 $data['tipetransaksi'] = $transaksitype;
                 $data['iditem'] = $iditem;
                 $this->load->view('admin/detailitemtransaksi/detailhpmasuk', $data);
+                break;
+                case '1':
+                $data['namatransaksi'] = 'HP TERJUAL';
+                $data['detailitem'] = $this->Data->getHpout($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailhpterjual', $data);
+                break;
+                case '2':
+                $data['namatransaksi'] = 'SERVIS SELESAI';
+                $data['detailitem'] = $this->Data->getServisout($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailservisselesai', $data);
+                break;
+                case '3':
+                $data['namatransaksi'] = 'SERVIS RETURN';
+                $data['detailitem'] = $this->Data->getServisreturn($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailservisreturn', $data);
+                break;
+                case '4':
+                $data['namatransaksi'] = 'ACCESORIS';
+                $data['detailitem'] = $this->Data->getAccesoris($iditem);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/detailitemtransaksi/detailaccesoris', $data);
+                break;
+                default:
+                break;
+            }
+        }
+    }
+    public function editdetail($transaksitype = null, $iditem = null){
+        $username = $this->input->post('username');
+        if($username != 'editdetail9009'){
+            echo 'kamu tidak diijinkan mengakses halaman ini';
+        } else{
+            switch ($transaksitype) {
+                case '0':
+                $this->load->library('adminBerandaLib', 'adminberandalib');
+                $data['namatransaksi'] = 'HP MASUK';
+                $data['detailitem'] = $this->Data->getHpin($iditem);
+                $data['menuadmin'] = $this->menuadmin->getmenu();
+                $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data);
+                $data['tipetransaksi'] = $transaksitype;
+                $data['iditem'] = $iditem;
+                $this->load->view('admin/edititemtransaksi/edithpmasuk', $data);
                 break;
                 case '1':
                 $data['namatransaksi'] = 'HP TERJUAL';

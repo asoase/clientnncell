@@ -11,7 +11,9 @@
 
 	<script src="https://kit.fontawesome.com/1f3a35a986.js" crossorigin="anonymous"></script>
 
-	<link rel="stylesheet" href="<?= $CSSPATH; ?>">
+	<?php foreach ($CSSPATHS as $csspatch) {?>
+		<link rel="stylesheet" href="<?= $csspatch; ?>">
+	<?php } ?>
 	<title><?= $title; ?></title>
 </head>
 

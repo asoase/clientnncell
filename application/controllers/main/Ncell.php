@@ -58,7 +58,6 @@ class Ncell extends CI_Controller
                 case 'hin':
                     $data['hpin']      = $this->alldata->getHpin($id);
                     $data['selection'] = $this->getselected($data['hpin']);
-                    // $this->getselected($data['hpin']);
                     $this->load->view('sbmain/bodyform/formhpin', $data);
                     break;
                 case 'hout':

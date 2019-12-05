@@ -45,9 +45,9 @@
             </div>
             <div class="py-1 mt-3 d-flex justify-content-end">
               <ul class="pagination" id="seminggu">
-                <li class="page-item"><a class="page-link bg-primary text-white bl20" href="<?= $data['page'][0]; ?>"><i class="fas fa-angle-double-left"></i></a></li>
-                <li class="page-item"><a class="page-link" href="<?= $data['page'][2]; ?>">Minggu Ini</a></li>
-                <li class="page-item"><a class="page-link bg-primary text-white br20" href="<?= $data['page'][1]; ?>"><i class="fas fa-angle-double-right"></i></a></li>
+                <li class="page-item"><a class="page-link bg-primary text-white bl20" href="<?=$data['page'][0];?>"><i class="fas fa-angle-double-left"></i></a></li>
+                <li class="page-item"><a class="page-link" href="<?=$data['page'][2];?>">Minggu Ini</a></li>
+                <li class="page-item"><a class="page-link bg-primary text-white br20" href="<?=$data['page'][1];?>"><i class="fas fa-angle-double-right"></i></a></li>
               </ul>
             </div>
           </div>
@@ -73,129 +73,129 @@
           </div>
         </div>
         <div class="accordion" id="accordion-bonus">
-          <?php for ($i=0; $i < 2; $i++) { ?>
-            <?php $sales = $data['sales'][$i]; ?>
+          <?php foreach ($data['salesname'] as $salesnames) {?>
+            <?php $salesname = $salesnames['sales'];?>
             <div class="judul-list1">
-              <a class="bt-accordion" data-toggle="collapse" href="#accordionbonus<?=$i;?>">
-                <?= $data['sales'][$i]; ?><i class="fas fa-lg fa-angle-down"></i>
+              <a class="bt-accordion" data-toggle="collapse" href="#accordionbonus<?=$salesname;?>">
+                <?=$salesname;?><i class="fas fa-lg fa-angle-down"></i>
               </a>
-              <div class="collapse" id="accordionbonus<?=$i;?>" data-parent="#accordion-bonus">
+              <div class="collapse" id="accordionbonus<?=$salesname;?>" data-parent="#accordion-bonus">
                 <div class="tabel-hari mt-4">
                   <div class="judul-list1">
                     <div>
-                      <?php if ($data[$sales]['bhpin']['bhpinreturn'] > 0) { ?>
+                      <?php if ($data['sales'][$salesname]['bhpin']['bhpinreturn'] > 0) {?>
                         <p>
-                          HP MASUK : <?= $data[$sales]['bhpin']['bhpintotal'].' (return '.$data[$sales]['bhpin']['bhpinreturn'].')'; ?>
+                          HP MASUK : <?=$data['sales'][$salesname]['bhpin']['bhpintotal'] . ' (return ' . $data['sales'][$salesname]['bhpin']['bhpinreturn'] . ')';?>
                         </p>
-                      <?php } else{ ?>
+                      <?php } else {?>
                         <p>
-                          HP MASUK : <?= $data[$sales]['bhpin']['bhpintotal']; ?>
+                          HP MASUK : <?=$data['sales'][$salesname]['bhpin']['bhpintotal'];?>
                         </p>
-                      <?php } ?>
-                      <?php if ($data[$sales]['bhpout']['bhpoutreturn'] > 0) { ?>
+                      <?php }?>
+                      <?php if ($data['sales'][$salesname]['bhpout']['bhpoutreturn'] > 0) {?>
                         <p>
-                          HP TERJUAL : <?= $data[$sales]['bhpout']['bhpouttotal'].' (return '.$data[$sales]['bhpout']['bhpoutreturn'].')'; ?>
+                          HP TERJUAL : <?=$data['sales'][$salesname]['bhpout']['bhpouttotal'] . ' (return ' . $data['sales'][$salesname]['bhpout']['bhpoutreturn'] . ')';?>
                         </p>
-                      <?php } else{ ?>
+                      <?php } else {?>
                         <p>
-                          HP TERJUAL : <?= $data[$sales]['bhpout']['bhpouttotal']; ?>
+                          HP TERJUAL : <?=$data['sales'][$salesname]['bhpout']['bhpouttotal'];?>
                         </p>
-                      <?php } ?>
-                      <?php if ($data[$sales]['bservis']['bservisreturn'] > 0) { ?>
+                      <?php }?>
+                      <?php if ($data['sales'][$salesname]['bservis']['bservisreturn'] > 0) {?>
                         <p>
-                          SERVIS : <?= $data[$sales]['bservis']['bservistotal'].' (return '.$data[$sales]['bservis']['bservisreturn'].')'; ?>
+                          SERVIS : <?=$data['sales'][$salesname]['bservis']['bservistotal'] . ' (return ' . $data['sales'][$salesname]['bservis']['bservisreturn'] . ')';?>
                         </p>
-                      <?php } else{ ?>
+                      <?php } else {?>
                         <p>
-                          SERVIS : <?= $data[$sales]['bservis']['bservistotal']; ?>
+                          SERVIS : <?=$data['sales'][$salesname]['bservis']['bservistotal'];?>
                         </p>
-                      <?php } ?>
+                      <?php }?>
                     </div>
                   </div>
                   <div class="judul-list1">
-                    <a class="bt-accordion text-primary" data-toggle="collapse" href="#detailbonus<?=$i;?>">
+                    <a class="bt-accordion text-primary" data-toggle="collapse" href="#detailbonus<?=$salesname;?>">
                       detail<i class="fas fa-lg fa-angle-down"></i>
                     </a>
-                    <div class="collapse" id="detailbonus<?=$i;?>">
+                    <div class="collapse" id="detailbonus<?=$salesname;?>">
                       <div class="tabel-hari mt-4">
                         <div class="judul-list1 font-weight-bold">
                           HP MASUK
                         </div>
-                        <?php if ($data[$sales]['bhpin']['bhpintotal'] > 0) {?>
-                          <?php $index = 1; ?>
+                        <?php if ($data['sales'][$salesname]['bhpin']['bhpintotal'] > 0) {?>
+                          <?php $index = 1;?>
                           <table class="table table-bordered">
-                            <?php foreach ($data[$sales]['bhpin']['ballin']['return'] as $item) {?>
+                            <?php foreach ($data['sales'][$salesname]['bhpin']['ballin']['return'] as $item) {?>
                               <tr class="text-danger">
-                                <td class="align-middle"><?= $index; ?></td>
-                                <td align="left"><?= $item; ?></td>
+                                <td class="align-middle"><?=$index;?></td>
+                                <td align="left"><?=$item;?></td>
                               </tr>
-                              <?php $index++; ?>
-                            <?php } ?>
-                            <?php foreach ($data[$sales]['bhpin']['ballin']['bonus'] as $item) {?>
+                              <?php $index++;?>
+                            <?php }?>
+                            <?php foreach ($data['sales'][$salesname]['bhpin']['ballin']['bonus'] as $item) {?>
                               <tr class="text-primary">
-                                <td class="align-middle"><?= $index; ?></td>
-                                <td align="left"><?= $item;  ?></td>
+                                <td class="align-middle"><?=$index;?></td>
+                                <td align="left"><?=$item;?></td>
                               </tr>
-                              <?php $index++; ?>
-                            <?php } ?>
+                              <?php $index++;?>
+                            <?php }?>
                           </table>
-                        <?php } else{ ?>
+                        <?php } else {?>
                           <div class="judul-list1 text-danger">
                             tidak ada bonus
                           </div>
-                        <?php } ?>
+                        <?php }?>
                         <div class="judul-list1 font-weight-bold">
                           HP TERJUAL
                         </div>
-                        <?php if ($data[$sales]['bhpout']['bhpouttotal'] > 0) {?>
-                          <?php $index = 1; ?>
+                        <?php if ($data['sales'][$salesname]['bhpout']['bhpouttotal'] > 0) {?>
+                          <?php $index = 1;?>
                           <table class="table table-bordered">
-                            <?php foreach ($data[$sales]['bhpout']['ballout']['return'] as $item) {?>
+                            <?php foreach ($data['sales'][$salesname]['bhpout']['ballout']['return'] as $item) {?>
                               <tr class="text-danger">
-                                <td class="align-middle"><?= $index; ?></td>
-                                <td align="left"><?= $item; ?></td>
+                                <td class="align-middle"><?=$index;?></td>
+                                <td align="left"><?=$item;?></td>
                               </tr>
-                              <?php $index++; ?>
-                            <?php } ?>
-                            <?php foreach ($data[$sales]['bhpout']['ballout']['bonus'] as $item) {?>
+                              <?php $index++;?>
+                            <?php }?>
+                            <?php foreach ($data['sales'][$salesname]['bhpout']['ballout']['bonus'] as $item) {?>
                               <tr class="text-primary">
-                                <td class="align-middle"><?= $index; ?></td>
-                                <td align="left"><?= $item;  ?></td>
+                                <td class="align-middle"><?=$index;?></td>
+                                <td align="left"><?=$item;?></td>
                               </tr>
-                              <?php $index++; ?>
-                            <?php } ?>
+                              <?php $index++;?>
+                            <?php }?>
                           </table>
-                        <?php } else{ ?>
+                        <?php } else {?>
                           <div class="judul-list1 text-danger">
                             tidak ada bonus
                           </div>
-                        <?php } ?>
+                        <?php }?>
                         <div class="judul-list1 font-weight-bold">
                           SERVIS
                         </div>
-                        <?php if ($data[$sales]['bservis']['bservistotal'] > 0) {?>
-                          <?php $index = 1; ?>
+                        <?php if ($data['sales'][$salesname]['bservis']['bservistotal'] > 0) {?>
+                          <?php $index = 1;?>
                           <table class="table table-bordered">
-                            <?php foreach ($data[$sales]['bservis']['ballserv']['return'] as $item) {?>
+                            <?php foreach ($data['sales'][$salesname]['bservis']['ballserv']['return'] as $item) {?>
                               <tr class="text-danger">
-                                <td class="align-middle"><?= $index; ?></td>
-                                <td align="left"><?= $item; ?></td>
+                                <td class="align-middle"><?=$index;?></td>
+                                <td align="left"><?=$item;?></td>
                               </tr>
-                              <?php $index++; ?>
-                            <?php } ?>
-                            <?php foreach ($data[$sales]['bservis']['ballserv']['bonus'] as $item) {?>
+                              <?php $index++;?>
+                            <?php }?>
+                            <?php foreach ($data['sales'][$salesname]['bservis']['ballserv']['bonus'] as $item) {?>
                               <tr class="text-primary">
-                                <td class="align-middle"><?= $index; ?></td>
-                                <td align="left"><?= $item;  ?></td>
+                                <td class="align-middle"><?=$index;?></td>
+                                <td align="left"><?=$item;?></td>
                               </tr>
-                              <?php $index++; ?>
-                            <?php } ?>
+                              <?php $index++;?>
+                            <?php }?>
                           </table>
-                        <?php } else{ ?>
+                        <?php } else {?>
                           <div class="judul-list1 text-danger">
                             tidak ada bonus
                           </div>
-                        <?php } ?>
+                        <?php }?>
                         <div class="py-1">
                           <p></p>
                         </div>
@@ -208,7 +208,7 @@
                 </div>
               </div>
             </div>
-          <?php } ?>
+          <?php }?>
         </div>
         <div class="judul-list1">
           <a class="bt-accordion font-weight-bold" data-toggle="collapse" href="#collapsetotal">
@@ -219,24 +219,29 @@
               <div class="judul-list1">
                 <div>
                   <?php if ($data['totaltransaksi']['hpin'][1] > 0) {?>
-                    HP MASUK : <?= $data['totaltransaksi']['hpin'][0].' (return '.$data['totaltransaksi']['hpin'][1].')'; ?> 
-                  <?php } else{ ?>
-                    HP MASUK : <?= $data['totaltransaksi']['hpin'][0]; ?> 
-                  <?php } ?>
+                    HP MASUK : <?=$data['totaltransaksi']['hpin'][0] . ' (return ' . $data['totaltransaksi']['hpin'][1] . ')';?>
+                  <?php } else {?>
+                    HP MASUK : <?=$data['totaltransaksi']['hpin'][0];?>
+                  <?php }?>
                 </div>
                 <div>
                   <?php if ($data['totaltransaksi']['hpout'][1] > 0) {?>
-                    HP TERJUAL : <?= $data['totaltransaksi']['hpout'][0].' (return '.$data['totaltransaksi']['hpout'][1].')'; ?> 
-                  <?php } else{ ?>
-                    HP TERJUAL : <?= $data['totaltransaksi']['hpout'][0]; ?> 
-                  <?php } ?>
+                    HP TERJUAL : <?=$data['totaltransaksi']['hpout'][0] . ' (return ' . $data['totaltransaksi']['hpout'][1] . ')';?>
+                  <?php } else {?>
+                    HP TERJUAL : <?=$data['totaltransaksi']['hpout'][0];?>
+                  <?php }?>
                 </div>
                 <div>
                   <?php if ($data['totaltransaksi']['servis'][1] > 0) {?>
-                    SERVIS : <?= $data['totaltransaksi']['servis'][0].' (return '.$data['totaltransaksi']['servis'][1].')'; ?> 
-                  <?php } else{ ?>
-                    SERVIS : <?= $data['totaltransaksi']['servis'][0]; ?> 
-                  <?php } ?>
+                    SERVIS : <?=$data['totaltransaksi']['servis'][0] . ' (return ' . $data['totaltransaksi']['servis'][1] . ')';?>
+                  <?php } else {?>
+                    SERVIS : <?=$data['totaltransaksi']['servis'][0];?>
+                  <?php }?>
+                </div>
+                <div>
+                  <?php if ($data['totaltransaksi']['acc'] > 0) {?>
+                    ACCESORIS : <?=$data['totaltransaksi']['acc'];?>
+                  <?php }?>
                 </div>
               </div>
               <div class="py-1">
@@ -266,9 +271,9 @@
               <div class="collapse" id="accordionhari<?=$i;?>" data-parent="#accordion-hari">
                 <div class="tabel-hari mt-4">
                   <?php for ($j = 0; $j < 5; $j++) {?>
-                    <?php $jumlahbarang = count($data['shortbydate'][$i][$j]); ?>
+                    <?php $jumlahbarang = count($data['shortbydate'][$i][$j]);?>
                     <div class="judul-list1 font-weight-bold">
-                      <?= $data['rekapitem'][$j]; ?>
+                      <?=$data['rekapitem'][$j];?>
                     </div>
                     <?php if ($jumlahbarang == 0) {?>
                       <div class="judul-list1">
@@ -276,75 +281,75 @@
                       </div>
                     <?php } else {?>
                       <table class="table table-bordered">
-                        <?php $index = 1; ?>
+                        <?php $index = 1;?>
                         <?php foreach ($data['shortbydate'][$i][$j] as $value) {?>
                           <?php if ($j == 0) {?>
                             <tr class="text-primary">
-                              <td class="align-middle"><?= $index; ?></td>
+                              <td class="align-middle"><?=$index;?></td>
                               <td align="left">
-                                <button class="bt-detail-hari" data-transaksi="<?= $j; ?>" data-iditem="<?= $value['id']; ?>" data-toggle="modal" data-target="#detailModal">
+                                <button class="bt-detail-hari" data-transaksi="<?=$j;?>" data-iditem="<?=$value['id'];?>" data-toggle="modal" data-target="#detailModal">
                                   <div class="d-flex align-item-center justify-content-between">
-                                    <?= $value['merk'].' '.$value['tipe'].' ('.$value['imei'].')'; ?>
+                                    <?=$value['merk'] . ' ' . $value['tipe'] . ' (' . $value['imei'] . ')';?>
                                     <i class="fas fa-lg fa-ellipsis-v"></i>
                                   </div>
                                 </button>
                               </td>
                             </tr>
-                            <?php $index++; ?>
+                            <?php $index++;?>
                           <?php } else if ($j == 1) {?>
                             <tr class="text-primary">
-                              <td class="align-middle"><?= $index; ?></td>
+                              <td class="align-middle"><?=$index;?></td>
                               <td align="left">
-                                <button class="bt-detail-hari" data-transaksi="<?= $j; ?>" data-iditem="<?= $value['id']; ?>" data-toggle="modal" data-target="#detailModal">
+                                <button class="bt-detail-hari" data-transaksi="<?=$j;?>" data-iditem="<?=$value['id'];?>" data-toggle="modal" data-target="#detailModal">
                                   <div class="d-flex align-item-center justify-content-between">
-                                    <?= $value['merk'].' '.$value['tipe'].' ('.$value['imei'].')'; ?>
+                                    <?=$value['merk'] . ' ' . $value['tipe'] . ' (' . $value['imei'] . ')';?>
                                     <i class="fas fa-lg fa-ellipsis-v"></i>
                                   </div>
                                 </button>
                               </td>
                             </tr>
-                            <?php $index++; ?>
+                            <?php $index++;?>
                           <?php } else if ($j == 2) {?>
                             <tr class="text-primary">
-                              <td class="align-middle"><?= $index; ?></td>
+                              <td class="align-middle"><?=$index;?></td>
                               <td align="left">
-                                <button class="bt-detail-hari" data-transaksi="<?= $j; ?>" data-iditem="<?= $value['id']; ?>" data-toggle="modal" data-target="#detailModal">
+                                <button class="bt-detail-hari" data-transaksi="<?=$j;?>" data-iditem="<?=$value['id'];?>" data-toggle="modal" data-target="#detailModal">
                                   <div class="d-flex align-item-center justify-content-between">
-                                    <?= $value['merk'].' '.$value['tipe']; ?>
+                                    <?=$value['merk'] . ' ' . $value['tipe'];?>
                                     <i class="fas fa-lg fa-ellipsis-v"></i>
                                   </div>
                                 </button>
                               </td>
                             </tr>
-                            <?php $index++; ?>
+                            <?php $index++;?>
                           <?php } else if ($j == 3) {?>
                             <tr class="text-primary">
-                              <td class="align-middle"><?= $index; ?></td>
+                              <td class="align-middle"><?=$index;?></td>
                               <td align="left">
-                                <button class="bt-detail-hari" data-transaksi="<?= $j; ?>" data-iditem="<?= $value['id']; ?>" data-toggle="modal" data-target="#detailModal">
+                                <button class="bt-detail-hari" data-transaksi="<?=$j;?>" data-iditem="<?=$value['id'];?>" data-toggle="modal" data-target="#detailModal">
                                   <div class="d-flex align-item-center justify-content-between">
-                                    <?= $value['merk'].' '.$value['tipe']; ?>
+                                    <?=$value['merk'] . ' ' . $value['tipe'];?>
                                     <i class="fas fa-lg fa-ellipsis-v"></i>
                                   </div>
                                 </button>
                               </td>
                             </tr>
-                            <?php $index++; ?>
+                            <?php $index++;?>
                           <?php } else if ($j == 4) {?>
                             <tr class="text-primary">
-                              <td class="align-middle"><?= $index; ?></td>
+                              <td class="align-middle"><?=$index;?></td>
                               <td align="left">
-                                <button class="bt-detail-hari" data-transaksi="<?= $j; ?>" data-iditem="<?= $value['id']; ?>" data-toggle="modal" data-target="#detailModal">
+                                <button class="bt-detail-hari" data-transaksi="<?=$j;?>" data-iditem="<?=$value['id'];?>" data-toggle="modal" data-target="#detailModal">
                                   <div class="d-flex align-item-center justify-content-between">
-                                    <?= $value['nama']; ?>
+                                    <?=$value['nama'];?>
                                     <i class="fas fa-lg fa-ellipsis-v"></i>
                                   </div>
                                 </button>
                               </td>
                             </tr>
-                            <?php $index++; ?>
-                          <?php } ?>
-                        <?php } ?>
+                            <?php $index++;?>
+                          <?php }?>
+                        <?php }?>
                       </table>
                     <?php }?>
                   <?php }?>

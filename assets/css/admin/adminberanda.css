@@ -79,3 +79,6 @@ a.bt-accordion{
 .setcircle{
 	border-radius: 50%;
 }
+td{
+	word-break: break-all;
+}

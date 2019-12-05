@@ -19,7 +19,7 @@
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Biaya</th>
-					<td><?= 'Rp. '.number_format($detailitem['biaya'], 0, '', '.'); ?></td>
+					<td><?= 'Rp. '.number_format($detailitem['biaya'],2,',','.'); ?></td>
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Teknisi</th>

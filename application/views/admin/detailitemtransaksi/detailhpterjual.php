@@ -27,11 +27,11 @@
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Harga Awal</th>
-					<td><?= 'Rp. '.number_format($detailitem['harga_awal'], 0, '', '.'); ?></td>
+					<td><?= 'Rp. '.number_format($detailitem['harga_awal'],2,',','.'); ?></td>
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Terjual</th>
-					<td><?= 'Rp. '.number_format($detailitem['terjual'], 0, '', '.'); ?></td>
+					<td><?= 'Rp. '.number_format($detailitem['terjual'],2,',','.'); ?></td>
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Kelengkapan</th>

@@ -15,7 +15,7 @@
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Harga</th>
-					<td><?= 'Rp. '.number_format($detailitem['harga'], 0, '', '.'); ?></td>
+					<td><?= 'Rp. '.number_format($detailitem['harga'],2,',','.'); ?></td>
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Catatan</th>

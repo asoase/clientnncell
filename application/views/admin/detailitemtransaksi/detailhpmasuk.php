@@ -7,7 +7,7 @@
 <div class="modal-body">
 	<h5 class="modal-title text-center mb-2"><?= $detailitem['merk'].' '.$detailitem['tipe'].' ('.$detailitem['imei'].')';?></h5>
 	<div class="table-responsive">
-		<table class="table table-sm table-bordered table-striped">
+		<table class="table table-sm table-bordered table-striped" id="tabledetailhp">
 			<tbody>
 				<tr>
 					<th scope="row" class="align-baseline">Tanggal</th>
@@ -27,7 +27,7 @@
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Harga</th>
-					<td><?= 'Rp. '.number_format($detailitem['harga'], 0, '', '.'); ?></td>
+					<td><?= 'Rp. '.number_format($detailitem['harga'],2,',','.'); ?></td>
 				</tr>
 				<tr>
 					<th scope="row" class="align-baseline">Kelengkapan</th>

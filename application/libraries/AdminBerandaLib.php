@@ -325,7 +325,7 @@ class AdminBerandaLib
 
   public function getselectindex($data, $tipeitem)
   {
-    if ($tipeitem == 1) {
+    if ($tipeitem == 'servis') {
       $returndata = 0;
       $index      = 0;
       foreach ($data['menuadmin']['sales'] as $value) {

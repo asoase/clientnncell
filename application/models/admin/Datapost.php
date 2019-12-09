@@ -9,8 +9,8 @@ class Datapost extends CI_model
     $_client = new Client([
       'base_uri'        => $this->config->item('server_url'),
       'auth'            => ['noericell', 'admindandangan'],
-      'timeout'         => 5, // Response timeout
-      'connect_timeout' => 5, // Connection timeout
+      'timeout'         => 3, // Response timeout
+      // 'connect_timeout' => 5, // Connection timeout
     ]);
     return $_client;
   }

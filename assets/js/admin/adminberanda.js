@@ -42,6 +42,7 @@ $('button.bt-detail-hari').on('click', function(event) {
 function detailajax(urlajax) {
   $.ajax({
     url: urlajax,
+    timeout: 2000,
     data: {
       username: 'isidetail9009'
     },
@@ -51,6 +52,9 @@ function detailajax(urlajax) {
     },
     success: function(data) {
       isidetail(data);
+    },
+    error: function(data) {
+      isidetail('ajax koneksi error');
     },
     complete: function() {
       initedit();
@@ -70,6 +74,7 @@ function initedit() {
 function editajax(urlajax) {
   $.ajax({
     url: urlajax,
+    timeout: 2000,
     data: {
       username: 'editdetail9009'
     },
@@ -79,6 +84,9 @@ function editajax(urlajax) {
     },
     success: function(data) {
       isidetail(data);
+    },
+    error: function(data) {
+      isidetail('ajax koneksi error');
     },
     complete: function(data) {
       initsubmitedit();
@@ -163,6 +171,7 @@ function submiteditajax(urlajax, dataput) {
   let datasend = dataput;
   $.ajax({
     url: urlajax,
+    timeout: 2000,
     data: {
       username: 'submitedit9009',
       datatoput: datasend
@@ -173,6 +182,9 @@ function submiteditajax(urlajax, dataput) {
     },
     success: function(data) {
       isidetail(data);
+    },
+    error: function(data) {
+      isidetail('ajax koneksi error');
     },
     complete: function(data) {}
   });

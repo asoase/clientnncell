@@ -1,16 +1,19 @@
 <?php
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Resthttpcode\code\RESTHTTPCode;
+
+require APPPATH . 'libraries/RESTHTTPCode.php';
 
 class Dataput extends CI_model
 {
   private function createClient()
   {
     $_client = new Client([
-      'base_uri'        => $this->config->item('server_url'),
-      'auth'            => ['noericell', 'admindandangan'],
-      'timeout'         => 5, // Response timeout
-      'connect_timeout' => 5, // Connection timeout
+      'base_uri' => $this->config->item('server_url'),
+      'auth'     => ['noericell', 'admindandangan'],
+      'timeout'  => 3, // Response timeout
+      // 'connect_timeout' => 5, // Connection timeout
     ]);
     return $_client;
   }
@@ -25,6 +28,26 @@ class Dataput extends CI_model
     return $data;
   }
 
+  private function getputresult($response)
+  {
+    $result     = null;
+    $statuscode = $response->getStatusCode();
+    switch ($statuscode) {
+      case RESTHTTPCode::HTTP_OK:
+        $result = 'data sukses diupdate';
+        break;
+      case RESTHTTPCode::HTTP_NO_CONTENT:
+        $result = 'data gagal diupdate / data sama';
+        break;
+      case RESTHTTPCode::HTTP_NOT_FOUND:
+        $result = 'data tidak ada';
+        break;
+      default:
+        break;
+    }
+    return $result;
+  }
+
   public function putHpin($id, $dataput)
   {
     $_client    = $this->createClient();
@@ -33,9 +56,8 @@ class Dataput extends CI_model
       $response = $_client->request('PUT', 'transaksiadmin/hpin/item',
         [
           'form_params' => $formparams,
-          'http_errors' => true,
         ]);
-      $result = json_decode($response->getBody()->getContents(), true);
+      $result['message'] = $this->getputresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
@@ -54,9 +76,8 @@ class Dataput extends CI_model
       $response = $_client->request('PUT', 'transaksiadmin/hpout/item',
         [
           'form_params' => $formparams,
-          'http_errors' => true,
         ]);
-      $result = json_decode($response->getBody()->getContents(), true);
+      $result['message'] = $this->getputresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
@@ -75,9 +96,8 @@ class Dataput extends CI_model
       $response = $_client->request('PUT', 'transaksiadmin/servisout/item',
         [
           'form_params' => $formparams,
-          'http_errors' => true,
         ]);
-      $result = json_decode($response->getBody()->getContents(), true);
+      $result['message'] = $this->getputresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
@@ -96,9 +116,8 @@ class Dataput extends CI_model
       $response = $_client->request('PUT', 'transaksiadmin/servisreturn/item',
         [
           'form_params' => $formparams,
-          'http_errors' => true,
         ]);
-      $result = json_decode($response->getBody()->getContents(), true);
+      $result['message'] = $this->getputresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
@@ -117,9 +136,8 @@ class Dataput extends CI_model
       $response = $_client->request('PUT', 'transaksiadmin/accesoris/item',
         [
           'form_params' => $formparams,
-          'http_errors' => true,
         ]);
-      $result = json_decode($response->getBody()->getContents(), true);
+      $result['message'] = $this->getputresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();

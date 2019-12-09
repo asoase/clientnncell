@@ -34,9 +34,13 @@ class Admin extends CI_Controller
     $data['title']       = 'Admin';
     $data['headeraktif'] = 3;
     $data['data']        = $this->dataget->dataOneWeek($date);
-    $this->load->view('templates/navbar', $data);
-    $this->load->view('admin/adminberanda', $data);
-    $this->load->view('templates/closing', $data);
+    if ($data['data']['status']) {
+      $this->load->view('templates/navbar', $data);
+      $this->load->view('admin/adminberanda', $data);
+      $this->load->view('templates/closing', $data);
+    } else {
+      echo "koneksi error";
+    }
   }
   public function login()
   {
@@ -63,37 +67,57 @@ class Admin extends CI_Controller
         case '0':
           $data['namatransaksi'] = 'HP MASUK';
           $data['detailitem']    = $this->dataget->getHpin($iditem);
-          $data['tipetransaksi'] = $transaksitype;
-          $data['iditem']        = $iditem;
-          $this->load->view('admin/detailitemtransaksi/detailhpmasuk', $data);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $this->load->view('admin/detailitemtransaksi/detailhpmasuk', $data);
+          } else {
+            echo "isidetail koneksi error";
+          }
           break;
         case '1':
           $data['namatransaksi'] = 'HP TERJUAL';
           $data['detailitem']    = $this->dataget->getHpout($iditem);
-          $data['tipetransaksi'] = $transaksitype;
-          $data['iditem']        = $iditem;
-          $this->load->view('admin/detailitemtransaksi/detailhpterjual', $data);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $this->load->view('admin/detailitemtransaksi/detailhpterjual', $data);
+          } else {
+            echo "isidetail apasih koneksi error";
+          }
           break;
         case '2':
           $data['namatransaksi'] = 'SERVIS SELESAI';
           $data['detailitem']    = $this->dataget->getServisout($iditem);
-          $data['tipetransaksi'] = $transaksitype;
-          $data['iditem']        = $iditem;
-          $this->load->view('admin/detailitemtransaksi/detailservisselesai', $data);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $this->load->view('admin/detailitemtransaksi/detailservisselesai', $data);
+          } else {
+            echo "isidetail koneksi error";
+          }
           break;
         case '3':
           $data['namatransaksi'] = 'SERVIS RETURN';
           $data['detailitem']    = $this->dataget->getServisreturn($iditem);
-          $data['tipetransaksi'] = $transaksitype;
-          $data['iditem']        = $iditem;
-          $this->load->view('admin/detailitemtransaksi/detailservisreturn', $data);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $this->load->view('admin/detailitemtransaksi/detailservisreturn', $data);
+          } else {
+            echo "isidetail koneksi error";
+          }
           break;
         case '4':
           $data['namatransaksi'] = 'ACCESORIS';
           $data['detailitem']    = $this->dataget->getAccesoris($iditem);
-          $data['tipetransaksi'] = $transaksitype;
-          $data['iditem']        = $iditem;
-          $this->load->view('admin/detailitemtransaksi/detailaccesoris', $data);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $this->load->view('admin/detailitemtransaksi/detailaccesoris', $data);
+          } else {
+            echo "isidetail koneksi error";
+          }
           break;
         default:
           break;
@@ -109,47 +133,67 @@ class Admin extends CI_Controller
       $this->load->library('adminBerandaLib', 'adminberandalib');
       switch ($transaksitype) {
         case '0':
-          $data['namatransaksi']   = 'HP MASUK';
-          $data['menuadmin']       = $this->dataget->getmenu(0);
-          $data['detailitem']      = $this->dataget->getHpin($iditem);
-          $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data, 0);
-          $data['tipetransaksi']   = $transaksitype;
-          $data['iditem']          = $iditem;
-          $this->load->view('admin/edititemtransaksi/edithpmasuk', $data);
+          $data['namatransaksi'] = 'HP MASUK';
+          $data['menuadmin']     = $this->dataget->getmenu('hp');
+          $data['detailitem']    = $this->dataget->getHpin($iditem);
+          if ($data['menuadmin']['status'] && $data['detailitem']['status']) {
+            $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data, 'hp');
+            $data['tipetransaksi']   = $transaksitype;
+            $data['iditem']          = $iditem;
+            $this->load->view('admin/edititemtransaksi/edithpmasuk', $data);
+          } else {
+            echo "koneksi error";
+          }
           break;
         case '1':
-          $data['namatransaksi']   = 'HP TERJUAL';
-          $data['menuadmin']       = $this->dataget->getmenu(0);
-          $data['detailitem']      = $this->dataget->getHpout($iditem);
-          $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data, 0);
-          $data['tipetransaksi']   = $transaksitype;
-          $data['iditem']          = $iditem;
-          $this->load->view('admin/edititemtransaksi/edithpterjual', $data);
+          $data['namatransaksi'] = 'HP TERJUAL';
+          $data['menuadmin']     = $this->dataget->getmenu('hp');
+          $data['detailitem']    = $this->dataget->getHpout($iditem);
+          if ($data['menuadmin']['status'] && $data['detailitem']['status']) {
+            $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data, 'hp');
+            $data['tipetransaksi']   = $transaksitype;
+            $data['iditem']          = $iditem;
+            $this->load->view('admin/edititemtransaksi/edithpterjual', $data);
+          } else {
+            echo "koneksi error";
+          }
           break;
         case '2':
-          $data['namatransaksi']   = 'SERVIS SELESAI';
-          $data['menuadmin']       = $this->dataget->getmenu(1);
-          $data['detailitem']      = $this->dataget->getServisout($iditem);
-          $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data, 1);
-          $data['tipetransaksi']   = $transaksitype;
-          $data['iditem']          = $iditem;
-          $this->load->view('admin/edititemtransaksi/editservisselesai', $data);
+          $data['namatransaksi'] = 'SERVIS SELESAI';
+          $data['menuadmin']     = $this->dataget->getmenu('servis');
+          $data['detailitem']    = $this->dataget->getServisout($iditem);
+          if ($data['menuadmin']['status'] && $data['detailitem']['status']) {
+            $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data, 'servis');
+            $data['tipetransaksi']   = $transaksitype;
+            $data['iditem']          = $iditem;
+            $this->load->view('admin/edititemtransaksi/editservisselesai', $data);
+          } else {
+            echo "koneksi error";
+          }
           break;
         case '3':
-          $data['namatransaksi']   = 'SERVIS RETURN';
-          $data['menuadmin']       = $this->dataget->getmenu(1);
-          $data['detailitem']      = $this->dataget->getServisreturn($iditem);
-          $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data, 1);
-          $data['tipetransaksi']   = $transaksitype;
-          $data['iditem']          = $iditem;
-          $this->load->view('admin/edititemtransaksi/editservisselesai', $data);
+          $data['namatransaksi'] = 'SERVIS RETURN';
+          $data['menuadmin']     = $this->dataget->getmenu('servis');
+          $data['detailitem']    = $this->dataget->getServisreturn($iditem);
+          if ($data['menuadmin']['status'] && $data['detailitem']['status']) {
+            $data['selectmenuindex'] = $this->adminberandalib->getselectindex($data, 'servis');
+            $data['tipetransaksi']   = $transaksitype;
+            $data['iditem']          = $iditem;
+            $this->load->view('admin/edititemtransaksi/editservisselesai', $data);
+          } else {
+            echo "koneksi error";
+          }
           break;
         case '4':
           $data['namatransaksi'] = 'ACCESORIS';
           $data['detailitem']    = $this->dataget->getAccesoris($iditem);
-          $data['tipetransaksi'] = $transaksitype;
-          $data['iditem']        = $iditem;
-          $this->load->view('admin/edititemtransaksi/editaccesoris', $data);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi']   = $transaksitype;
+            $data['iditem']          = $iditem;
+            $this->load->view('admin/edititemtransaksi/editaccesoris', $data);
+          } else {
+            echo "koneksi error";
+          }
           break;
         default:
           break;

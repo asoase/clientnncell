@@ -13,12 +13,54 @@
     }
   });
 }).call(this);
-(function() {
-  let children = $('.headeraktif').data('headeraktif');
-  $('.headeraktif li:nth-child(' + children + ')').addClass('active');
-}).call(this);
+// button detail hari ketika di click mengisi modal dengan table berisi detail item yang di click
+$('button.bt-detail-hari').on('click', function(event) {
+  let transaksi = $(this).data('transaksi');
+  let id = $(this).data('iditem');
+  let urlajaxparams = base_url + 'admin/isidetail/' + transaksi + '/' + id;
+  let ajaxparams = {
+    urlajax: urlajaxparams,
+    username: 'isidetail9009',
+    actiononcomplete: 'initbuttonedithapus'
+  };
+  ajaxfunction(ajaxparams);
+});
 
-function nowloading() {
+function ajaxfunction(ajaxparams) {
+  $.ajax({
+    url: ajaxparams.urlajax,
+    timeout: 2000,
+    cache: false,
+    data: {
+      username: ajaxparams.username,
+      dataput: ajaxparams.dataput
+    },
+    type: 'POST',
+    beforeSend: function() {
+      modalloading();
+    },
+    success: function(data) {
+      if (ajaxparams.username == 'deleteitem9009') {
+        let result = JSON.parse(data);
+        if (result.status) {
+          isimodal(result.message);
+        } else {
+          isimodal(result.message);
+        }
+      } else {
+        isimodal(data);
+      }
+    },
+    error: function(data) {
+      isimodal('-- koneksi error --');
+    },
+    complete: function() {
+      oncomplete(ajaxparams.actiononcomplete);
+    }
+  });
+}
+
+function modalloading() {
   htmlloading = `
   <div class="text-center">
   <div class="spinner-border text-info" role="status">
@@ -26,75 +68,55 @@ function nowloading() {
   </div>
   </div>
   `;
-  $('div.isidetail').html(htmlloading);
+  $('div.isimodal').html(htmlloading);
 }
 
-function isidetail(data) {
-  $('div.isidetail').html(data);
-}
-$('button.bt-detail-hari').on('click', function(event) {
-  let transaksi = $(this).data('transaksi');
-  let id = $(this).data('iditem');
-  let urlajax = base_url + 'admin/isidetail/' + transaksi + '/' + id;
-  detailajax(urlajax);
-});
-
-function detailajax(urlajax) {
-  $.ajax({
-    url: urlajax,
-    timeout: 2000,
-    data: {
-      username: 'isidetail9009'
-    },
-    type: 'POST',
-    beforeSend: function() {
-      nowloading();
-    },
-    success: function(data) {
-      isidetail(data);
-    },
-    error: function(data) {
-      isidetail('ajax koneksi error');
-    },
-    complete: function() {
-      initedit();
-    }
-  });
+function isimodal(data) {
+  $('div.isimodal').html(data);
 }
 
-function initedit() {
-  $('.isidetail .modal-footer .edititem').click(function() {
+function oncomplete(actiononcomplete) {
+  switch (actiononcomplete) {
+    case 'initbuttonedithapus':
+      initbuttonedithapus();
+      break;
+    case 'initbuttonsubmitedit':
+      initbuttonsubmitedit();
+      break;
+    case 'initbuttondelete':
+      initbuttondelete();
+      break;
+    default:
+      break;
+  }
+}
+
+function initbuttonedithapus() {
+  $('.isimodal .modal-footer .edititem').click(function() {
     let transaksi = $(this).data('tipetransaksi');
     let id = $(this).data('iditem');
-    let urlajax = base_url + 'admin/editdetail/' + transaksi + '/' + id;
-    editajax(urlajax);
+    let urlajaxparams = base_url + 'admin/editdetail/' + transaksi + '/' + id;
+    let ajaxparams = {
+      urlajax: urlajaxparams,
+      username: 'editdetail9009',
+      actiononcomplete: 'initbuttonsubmitedit'
+    };
+    ajaxfunction(ajaxparams);
   });
-}
-
-function editajax(urlajax) {
-  $.ajax({
-    url: urlajax,
-    timeout: 2000,
-    data: {
-      username: 'editdetail9009'
-    },
-    type: 'POST',
-    beforeSend: function() {
-      nowloading();
-    },
-    success: function(data) {
-      isidetail(data);
-    },
-    error: function(data) {
-      isidetail('ajax koneksi error');
-    },
-    complete: function(data) {
-      initsubmitedit();
-    }
+  $('.isimodal .modal-footer .hapusitem').click(function() {
+    let transaksi = $(this).data('tipetransaksi');
+    let id = $(this).data('iditem');
+    let urlajaxparams = base_url + 'admin/dialogdeleteitem/' + transaksi + '/' + id;
+    let ajaxparams = {
+      urlajax: urlajaxparams,
+      username: 'dialogdelete9009',
+      actiononcomplete: 'initbuttondelete'
+    };
+    ajaxfunction(ajaxparams);
   });
 }
 // untuk mendapatkan nilai
-function initsubmitedit() {
+function initbuttonsubmitedit() {
   bootstrapformvalidation();
   $('input.inputcurrency').autoNumeric('init');
 }
@@ -118,10 +140,10 @@ function bootstrapformvalidation() {
     }, false);
   })();
 }
-
+// submitedit dipanggil otomatis saat form disubmit yang ada didalam modal setelah validasi terpenuhi
 function submitedit(tipetransaksi, iditem) {
   var dataput = {};
-  let isiform = $('.isidetail form.formedit').find('.inputform');
+  let isiform = $('.isimodal form.formedit').find('.inputform');
   let urutanisiform;
   switch (tipetransaksi) {
     case 0:
@@ -162,30 +184,27 @@ function submitedit(tipetransaksi, iditem) {
     default:
       break;
   }
-  dataput = JSON.stringify(dataput);
-  let urlajax = base_url + 'admin/submitedit/' + tipetransaksi + '/' + iditem;
-  submiteditajax(urlajax, dataput);
+  dataputparams = JSON.stringify(dataput);
+  let urlajaxparams = base_url + 'admin/submitedit/' + tipetransaksi + '/' + iditem;
+  let ajaxparams = {
+    urlajax: urlajaxparams,
+    username: 'submitedit9009',
+    actiononcomplete: '',
+    dataput: dataputparams
+  };
+  ajaxfunction(ajaxparams);
 }
 
-function submiteditajax(urlajax, dataput) {
-  let datasend = dataput;
-  $.ajax({
-    url: urlajax,
-    timeout: 2000,
-    data: {
-      username: 'submitedit9009',
-      datatoput: datasend
-    },
-    type: 'POST',
-    beforeSend: function() {
-      nowloading();
-    },
-    success: function(data) {
-      isidetail(data);
-    },
-    error: function(data) {
-      isidetail('ajax koneksi error');
-    },
-    complete: function(data) {}
+function initbuttondelete() {
+  $('.isimodal .modal-footer .submithapus').click(function() {
+    let transaksi = $(this).data('tipetransaksi');
+    let id = $(this).data('iditem');
+    let urlajaxparams = base_url + 'admin/deleteitem/' + transaksi + '/' + id;
+    let ajaxparams = {
+      urlajax: urlajaxparams,
+      username: 'deleteitem9009',
+      actiononcomplete: ''
+    };
+    ajaxfunction(ajaxparams);
   });
 }

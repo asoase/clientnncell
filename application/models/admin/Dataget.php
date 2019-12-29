@@ -1,17 +1,16 @@
 <?php
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Resthttpcode\code\RESTHTTPCode;
 
 class Dataget extends CI_model
 {
-
   public function createClient()
   {
     $_client = new Client([
       'base_uri' => $this->config->item('server_url'),
       'auth'     => ['noericell', 'admindandangan'],
       'timeout'  => 3, // Response timeout
-      // 'connect_timeout' => 2, // Connection timeout
     ]);
     return $_client;
   }
@@ -47,20 +46,46 @@ class Dataget extends CI_model
     return $query;
   }
 
+  private function getGetresult($response)
+  {
+    if (is_null($response) || $response == '') {
+      $result['status']  = false;
+      $result['message'] = 'server tidak merespon';
+      return $result;
+    }
+    $result     = null;
+    $statuscode = $response->getStatusCode();
+    switch ($statuscode) {
+      case RESTHTTPCode::HTTP_OK:
+        $result            = json_decode($response->getBody()->getContents(), true);
+        $result            = $result['data'];
+        $result['status']  = true;
+        $result['message'] = 'data sukses diambil';
+        break;
+      case RESTHTTPCode::HTTP_NOT_FOUND:
+        $result['status']  = false;
+        $result['message'] = 'data tidak ada';
+        break;
+      default:
+        $result['status']  = false;
+        $result['message'] = 'server tidak merespon';
+        break;
+    }
+    return $result;
+  }
+
   public function getmenu($tipeitem)
   {
     $_client = $this->createClient();
     $query   = $this->getquerymenu($tipeitem);
     try {
-      $response         = $_client->request('GET', 'transaksiadmin/adminmenu/menu', $query);
-      $result           = json_decode($response->getBody()->getContents(), true);
-      $result           = $result['data'];
-      $result['status'] = true;
+      $response = $_client->request('GET', 'transaksiadmin/adminmenu/menu', $query);
+      $result   = $this->getGetresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       } else {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       }
     }
     return $result;
@@ -73,9 +98,7 @@ class Dataget extends CI_model
     $query   = $this->getquerybytanggal($tanggal);
     try {
       $response                 = $_client->request('GET', 'transaksiadmin/data/oneweek', $query);
-      $result                   = json_decode($response->getBody()->getContents(), true);
-      $result                   = $result['data'];
-      $result['status']         = true;
+      $result                   = $this->getGetresult($response);
       $result['totaltransaksi'] = $this->adminberandalib->getAllTransaksi($result);
       foreach ($result['salesname'] as $sales) {
         $result['sales'][$sales['sales']] = $this->adminberandalib->getBonus($result, $sales['sales']);
@@ -88,9 +111,9 @@ class Dataget extends CI_model
       $result['encoded']     = json_encode($result);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       } else {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       }
     }
     return $result;
@@ -101,15 +124,13 @@ class Dataget extends CI_model
     $_client = $this->createClient();
     $query   = $this->getquerybyid($id);
     try {
-      $response         = $_client->request('GET', 'transaksiadmin/hpin/item', $query);
-      $result           = json_decode($response->getBody()->getContents(), true);
-      $result           = $result['data'];
-      $result['status'] = true;
+      $response = $_client->request('GET', 'transaksiadmin/hpin/item', $query);
+      $result   = $this->getGetresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       } else {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       }
     }
     return $result;
@@ -120,15 +141,13 @@ class Dataget extends CI_model
     $_client = $this->createClient();
     $query   = $this->getquerybyid($id);
     try {
-      $response         = $_client->request('GET', 'transaksiadmin/hpout/item', $query);
-      $result           = json_decode($response->getBody()->getContents(), true);
-      $result           = $result['data'];
-      $result['status'] = true;
+      $response = $_client->request('GET', 'transaksiadmin/hpout/item', $query);
+      $result   = $this->getGetresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       } else {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       }
     }
     return $result;
@@ -139,15 +158,13 @@ class Dataget extends CI_model
     $_client = $this->createClient();
     $query   = $this->getquerybyid($id);
     try {
-      $response         = $_client->request('GET', 'transaksiadmin/servisout/item', $query);
-      $result           = json_decode($response->getBody()->getContents(), true);
-      $result           = $result['data'];
-      $result['status'] = true;
+      $response = $_client->request('GET', 'transaksiadmin/servisout/item', $query);
+      $result   = $this->getGetresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       } else {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       }
     }
     return $result;
@@ -158,15 +175,13 @@ class Dataget extends CI_model
     $_client = $this->createClient();
     $query   = $this->getquerybyid($id);
     try {
-      $response         = $_client->request('GET', 'transaksiadmin/servisreturn/item', $query);
-      $result           = json_decode($response->getBody()->getContents(), true);
-      $result           = $result['data'];
-      $result['status'] = true;
+      $response = $_client->request('GET', 'transaksiadmin/servisreturn/item', $query);
+      $result   = $this->getGetresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       } else {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       }
     }
     return $result;
@@ -177,18 +192,21 @@ class Dataget extends CI_model
     $_client = $this->createClient();
     $query   = $this->getquerybyid($id);
     try {
-      $response         = $_client->request('GET', 'transaksiadmin/accesoris/item', $query);
-      $result           = json_decode($response->getBody()->getContents(), true);
-      $result           = $result['data'];
-      $result['status'] = true;
+      $response = $_client->request('GET', 'transaksiadmin/accesoris/item', $query);
+      $result   = $this->getGetresult($response);
     } catch (RequestException $re) {
       if ($re->hasResponse()) {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       } else {
-        $result['status'] = false;
+        $result = $this->getGetresult($re->getResponse());
       }
     }
     return $result;
+  }
+
+  public function getCari($type = null, $key1 = null, $key2 = null, $key3 = null)
+  {
+    return 'hasil cari';
   }
 
 }

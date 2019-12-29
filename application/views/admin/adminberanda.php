@@ -1,24 +1,3 @@
-<nav class="navbar navbar-light bg-light">
-  <div class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Menu
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <a class="dropdown-item" href="#">Detail Barang</a>
-      <a class="dropdown-item" href="#">Rekap Data</a>
-      <a class="dropdown-item" href="#">Edit Menu</a>
-    </div>
-  </div>
-  <form class="form-inline" action="<?=base_url('admin/cari');?>">
-    <div class="input-group">
-      <input type="text" class="bl20" placeholder="Cari barang" id="mainsearchinput" name="cari" required="true">
-      <div class="input-group-append">
-        <button class="btn btn-primary br20" type="submit" id="mainsubmit"><i class="fas fa-search"></i></button>
-      </div>
-    </div>
-  </form>
-</nav>
-
 <!-- detail transaksi -->
 <div class="container-fluid mt-4">
   <div class="row no-gutters justify-content-center">
@@ -374,7 +353,7 @@
 <!-- Modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content isidetail" id="isidetail">
+    <div class="modal-content isimodal" id="isidetail">
     </div>
   </div>
 </div>

@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     parent::__construct();
     $this->load->model('admin/Dataget', 'dataget');
     $this->load->model('admin/Dataput', 'dataput');
+    $this->load->model('admin/Datadelete', 'datadelete');
     date_default_timezone_set("Asia/Bangkok");
   }
 
@@ -24,10 +25,12 @@ class Admin extends CI_Controller
       redirect('admin/beranda/' . $this->input->get('ketanggal'));
     }
     $data['CSSPATHS'] = array(
+      base_url() . 'assets/css/templates/navbar.css',
       base_url() . 'assets/css/admin/adminberanda.css',
     );
     $data['JSPATHS'] = array(
       base_url() . 'assets/js/autoNumeric-1.9.26/autoNumeric.js',
+      base_url() . 'assets/js/admin/closingjs.js',
       base_url() . 'assets/js/admin/adminberanda.js',
     );
     $data['IMGPATH']     = base_url() . 'assets/img/';
@@ -36,15 +39,18 @@ class Admin extends CI_Controller
     $data['data']        = $this->dataget->dataOneWeek($date);
     if ($data['data']['status']) {
       $this->load->view('templates/navbar', $data);
+      $this->load->view('admin/navbar/adminnavbar', $data);
       $this->load->view('admin/adminberanda', $data);
       $this->load->view('templates/closing', $data);
     } else {
-      echo "koneksi error";
+      $message = $data['data']['message'];
+      echo $message;
     }
   }
   public function login()
   {
     $data['CSSPATHS'] = array(
+      base_url() . 'assets/css/templates/navbar.css',
       base_url() . 'assets/css/admin/adminlogin.css',
     );
     $data['JSPATHS'] = array(
@@ -72,7 +78,8 @@ class Admin extends CI_Controller
             $data['iditem']        = $iditem;
             $this->load->view('admin/detailitemtransaksi/detailhpmasuk', $data);
           } else {
-            echo "isidetail koneksi error";
+            $message = $data['detailitem']['message'];
+            echo $message;
           }
           break;
         case '1':
@@ -83,7 +90,8 @@ class Admin extends CI_Controller
             $data['iditem']        = $iditem;
             $this->load->view('admin/detailitemtransaksi/detailhpterjual', $data);
           } else {
-            echo "isidetail apasih koneksi error";
+            $message = $data['detailitem']['message'];
+            echo $message;
           }
           break;
         case '2':
@@ -94,7 +102,8 @@ class Admin extends CI_Controller
             $data['iditem']        = $iditem;
             $this->load->view('admin/detailitemtransaksi/detailservisselesai', $data);
           } else {
-            echo "isidetail koneksi error";
+            $message = $data['detailitem']['message'];
+            echo $message;
           }
           break;
         case '3':
@@ -105,7 +114,8 @@ class Admin extends CI_Controller
             $data['iditem']        = $iditem;
             $this->load->view('admin/detailitemtransaksi/detailservisreturn', $data);
           } else {
-            echo "isidetail koneksi error";
+            $message = $data['detailitem']['message'];
+            echo $message;
           }
           break;
         case '4':
@@ -116,7 +126,8 @@ class Admin extends CI_Controller
             $data['iditem']        = $iditem;
             $this->load->view('admin/detailitemtransaksi/detailaccesoris', $data);
           } else {
-            echo "isidetail koneksi error";
+            $message = $data['detailitem']['message'];
+            echo $message;
           }
           break;
         default:
@@ -142,7 +153,14 @@ class Admin extends CI_Controller
             $data['iditem']          = $iditem;
             $this->load->view('admin/edititemtransaksi/edithpmasuk', $data);
           } else {
-            echo "koneksi error";
+            $message = '';
+            if (!$data['menuadmin']['status']) {
+              $message = $data['menuadmin']['message'];
+            }
+            if (!$data['detailitem']['status']) {
+              $message = $data['detailitem']['message'];
+            }
+            echo $message;
           }
           break;
         case '1':
@@ -155,7 +173,14 @@ class Admin extends CI_Controller
             $data['iditem']          = $iditem;
             $this->load->view('admin/edititemtransaksi/edithpterjual', $data);
           } else {
-            echo "koneksi error";
+            $message = '';
+            if (!$data['menuadmin']['status']) {
+              $message = $data['menuadmin']['message'];
+            }
+            if (!$data['detailitem']['status']) {
+              $message = $data['detailitem']['message'];
+            }
+            echo $message;
           }
           break;
         case '2':
@@ -168,7 +193,14 @@ class Admin extends CI_Controller
             $data['iditem']          = $iditem;
             $this->load->view('admin/edititemtransaksi/editservisselesai', $data);
           } else {
-            echo "koneksi error";
+            $message = '';
+            if (!$data['menuadmin']['status']) {
+              $message = $data['menuadmin']['message'];
+            }
+            if (!$data['detailitem']['status']) {
+              $message = $data['detailitem']['message'];
+            }
+            echo $message;
           }
           break;
         case '3':
@@ -181,18 +213,32 @@ class Admin extends CI_Controller
             $data['iditem']          = $iditem;
             $this->load->view('admin/edititemtransaksi/editservisselesai', $data);
           } else {
-            echo "koneksi error";
+            $message = '';
+            if (!$data['menuadmin']['status']) {
+              $message = $data['menuadmin']['message'];
+            }
+            if (!$data['detailitem']['status']) {
+              $message = $data['detailitem']['message'];
+            }
+            echo $message;
           }
           break;
         case '4':
           $data['namatransaksi'] = 'ACCESORIS';
           $data['detailitem']    = $this->dataget->getAccesoris($iditem);
           if ($data['detailitem']['status']) {
-            $data['tipetransaksi']   = $transaksitype;
-            $data['iditem']          = $iditem;
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
             $this->load->view('admin/edititemtransaksi/editaccesoris', $data);
           } else {
-            echo "koneksi error";
+            $message = '';
+            if (!$data['menuadmin']['status']) {
+              $message = $data['menuadmin']['message'];
+            }
+            if (!$data['detailitem']['status']) {
+              $message = $data['detailitem']['message'];
+            }
+            echo $message;
           }
           break;
         default:
@@ -208,29 +254,136 @@ class Admin extends CI_Controller
     } else {
       switch ($transaksitype) {
         case '0':
-          $dataput = $this->input->post('datatoput', true);
+          $dataput = $this->input->post('dataput', true);
           $result  = $this->dataput->putHpin($iditem, $dataput);
           echo $result['message'];
           break;
         case '1':
-          $dataput = $this->input->post('datatoput', true);
+          $dataput = $this->input->post('dataput', true);
           $result  = $this->dataput->putHpout($iditem, $dataput);
           echo $result['message'];
           break;
         case '2':
-          $dataput = $this->input->post('datatoput', true);
+          $dataput = $this->input->post('dataput', true);
           $result  = $this->dataput->putServisout($iditem, $dataput);
           echo $result['message'];
           break;
         case '3':
-          $dataput = $this->input->post('datatoput', true);
+          $dataput = $this->input->post('dataput', true);
           $result  = $this->dataput->putServisreturn($iditem, $dataput);
           echo $result['message'];
           break;
         case '4':
-          $dataput = $this->input->post('datatoput', true);
+          $dataput = $this->input->post('dataput', true);
           $result  = $this->dataput->putAccesoris($iditem, $dataput);
           echo $result['message'];
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  public function dialogdeleteitem($transaksitype = null, $iditem = null)
+  {
+    $username = $this->input->post('username', true);
+    if ($username != 'dialogdelete9009') {
+      echo 'kamu tidak diijinkan mengakses halaman ini';
+    } else {
+      switch ($transaksitype) {
+        case '0':
+          $data['namatransaksi'] = 'hp masuk';
+          $data['detailitem']    = $this->dataget->getHpin($iditem);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $data['namaitem']      = $data['detailitem']['merk'] . ' ' . $data['detailitem']['tipe'] . ' (' . $data['detailitem']['imei'] . ')';
+            $this->load->view('admin/dialog/deletedialogitem', $data);
+          } else {
+            echo "koneksi error";
+          }
+          break;
+        case '1':
+          $data['namatransaksi'] = 'hp terjual';
+          $data['detailitem']    = $this->dataget->getHpout($iditem);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $data['namaitem']      = $data['detailitem']['merk'] . ' ' . $data['detailitem']['tipe'] . ' (' . $data['detailitem']['imei'] . ')';
+            $this->load->view('admin/dialog/deletedialogitem', $data);
+          } else {
+            echo "koneksi error";
+          }
+          break;
+        case '2':
+          $data['namatransaksi'] = 'servis selesai';
+          $data['detailitem']    = $this->dataget->getServisout($iditem);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $data['namaitem']      = $data['detailitem']['merk'] . ' ' . $data['detailitem']['tipe'] . ' (' . $data['detailitem']['kerusakan'] . ')';
+            $this->load->view('admin/dialog/deletedialogitem', $data);
+          } else {
+            echo "koneksi error";
+          }
+          break;
+        case '3':
+          $data['namatransaksi'] = 'servis return';
+          $data['detailitem']    = $this->dataget->getServisreturn($iditem);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $data['namaitem']      = $data['detailitem']['merk'] . ' ' . $data['detailitem']['tipe'] . ' (' . $data['detailitem']['kerusakan'] . ')';
+            $this->load->view('admin/dialog/deletedialogitem', $data);
+          } else {
+            echo "koneksi error";
+          }
+          break;
+        case '4':
+          $data['namatransaksi'] = 'Accesoris';
+          $data['detailitem']    = $this->dataget->getAccesoris($iditem);
+          if ($data['detailitem']['status']) {
+            $data['tipetransaksi'] = $transaksitype;
+            $data['iditem']        = $iditem;
+            $data['namaitem']      = $data['detailitem']['nama'] . ' (Rp. ' . number_format($data['detailitem']['harga'], 2, ',', '.') . ')';
+            $this->load->view('admin/dialog/deletedialogitem', $data);
+          } else {
+            echo "koneksi error";
+          }
+          break;
+      }
+    }
+  }
+  public function deleteitem($transaksitype = null, $iditem = null)
+  {
+    $username = $this->input->post('username', true);
+    if ($username != 'deleteitem9009') {
+      echo 'kamu tidak diijinkan mengakses halaman ini';
+    } else {
+      switch ($transaksitype) {
+        case '0':
+          $result = $this->datadelete->deleteHpin($iditem);
+          $result = json_encode($result);
+          echo $result;
+          break;
+        case '1':
+          $result = $this->datadelete->deleteHpout($iditem);
+          $result = json_encode($result);
+          echo $result;
+          break;
+        case '2':
+          $result = $this->datadelete->deleteServisout($iditem);
+          $result = json_encode($result);
+          echo $result;
+          break;
+        case '3':
+          $result = $this->datadelete->deleteServisreturn($iditem);
+          $result = json_encode($result);
+          echo $result;
+          break;
+        case '4':
+          $result = $this->datadelete->deleteAccesoris($iditem);
+          $result = json_encode($result);
+          echo $result;
           break;
         default:
           break;
@@ -427,12 +580,24 @@ class Admin extends CI_Controller
     }
     return $allselect;
   }
-  public function cari($keyword = null)
+  public function cari($type = null, $kw1 = null, $kw2 = null, $kw3 = null)
   {
-    $data['judul'] = 'Cari';
-    $getout        = $this->input->get('cari');
-    echo $getout;
-    // $this->pagetemplate('sbmain/sbcari', $data);
+    $data['judul']    = 'Cari';
+    $data['CSSPATHS'] = array(
+      base_url() . 'assets/css/templates/navbar.css',
+    );
+    $data['JSPATHS'] = array(
+      base_url() . 'assets/js/autoNumeric-1.9.26/autoNumeric.js',
+      base_url() . 'assets/js/admin/closingjs.js',
+    );
+    $data['IMGPATH']     = base_url() . 'assets/img/';
+    $data['title']       = 'Cari';
+    $data['headeraktif'] = 3;
+    $data['hasil']       = $this->dataget->getCari($type, $kw1, $kw2, $kw3);
+    $this->load->view('templates/navbar', $data);
+    $this->load->view('admin/navbar/adminnavbar', $data);
+    $this->load->view('admin/cari/isicari', $data);
+    $this->load->view('templates/closing', $data);
   }
   public function servisproses()
   {

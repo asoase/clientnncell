@@ -7,9 +7,9 @@ class Datapost extends CI_model
   public function createClient()
   {
     $_client = new Client([
-      'base_uri'        => $this->config->item('server_url'),
-      'auth'            => ['noericell', 'admindandangan'],
-      'timeout'         => 3, // Response timeout
+      'base_uri' => $this->config->item('server_url'),
+      'auth'     => ['noericell', 'admindandangan'],
+      'timeout'  => 3, // Response timeout
       // 'connect_timeout' => 5, // Connection timeout
     ]);
     return $_client;
@@ -31,24 +31,6 @@ class Datapost extends CI_model
         'id'     => $id],
     ];
     return $query;
-  }
-  public function getquerymenu()
-  {
-    $query = [
-      'query' => [
-        'apikey' => 'jamah'],
-    ];
-    return $query;
-  }
-
-  public function getmenu()
-  {
-    $_client  = $this->createClient();
-    $query    = $this->getquerymenu();
-    $response = $_client->request('GET', 'transaksiadmin/adminmenu/menu', $query);
-    $result   = json_decode($response->getBody()->getContents(), true);
-    $result   = $result['data'];
-    return $result;
   }
 
   public function dataOneWeek($tanggal)

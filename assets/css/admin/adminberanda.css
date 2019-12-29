@@ -1,84 +1,68 @@
-/* Bootstrap 4 breakpoints
-/* Small devices (landscape phones, 544px and up) */
-*{
-	font-size: 14px;
+.bl20 {
+  border-radius: 20px 0px 0px 20px!important;
 }
-@media (min-width: 440px) {  
-	* {font-size:1rem;}
+.br20 {
+  border-radius: 0px 20px 20px 0px!important;
 }
-
-/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-@media (min-width: 768px) {  
-	* {font-size:1rem;}
+#mainsearchinput {
+  background-color: transparent;
+  border: outset;
+  border-width: 1px;
+  border-color: #9259d9;
+  padding-left: 15px;
 }
-body{
-	background-color: #d9fbff;
+#mainsubmit {
+  padding-right: 20px;
 }
-.bl20{
-	border-radius: 20px 0px 0px 20px!important;
+.cover-terluar, .tabel-hari {
+  border-radius: 10px;
 }
-.br20{
-	border-radius: 0px 20px 20px 0px!important;
+.cover-terluar {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 2px #666161;
 }
-#mainsearchinput{
-	background-color: transparent;
-	border: outset;
-	border-width: 1px;
-	border-color: #9259d9;
-	padding-left: 15px;
+.tabel-hari {
+  border: 1px solid black;
 }
-#mainsubmit{
-	padding-right: 20px;
+.judul-list1 {
+  border-bottom: 1px solid black;
+  padding: 15px 10px 15px 10px;
 }
-.cover-terluar, .tabel-hari{
-	border-radius: 10px;
+a.bt-accordion {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.cover-terluar{
-	background-color: #ffffff;
-	box-shadow: 0 0 10px 2px #666161;
+button.bt-detail-hari {
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  margin: 0;
+  text-decoration: none;
+  background: inherit;
+  padding: 0px 0px;
+  color: #0053ba;
 }
-.tabel-hari{
-	border: 1px solid black;
-}
-.judul-list1{
-	border-bottom: 1px solid black;
-	padding: 15px 10px 15px 10px;
-}
-a.bt-accordion{
-	text-decoration: none;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-button.bt-detail-hari{
-	width: 100%;
-	align-items: center;
-	justify-content: space-between;
-	border: none;
-	margin: 0;
-	text-decoration: none;
-	background: inherit;
-	padding: 0px 0px;
-	color: #0053ba;
-}
-button.bt-detail-hari:focus{
-	outline: none;
+button.bt-detail-hari:focus {
+  outline: none;
 }
 button.bt-detail-hari:active {
-	transform: scale(0.99);
+  transform: scale(0.99);
 }
-a.bt-accordion{
-	color: inherit;
+a.bt-accordion {
+  color: inherit;
 }
-.fa-angle-down{
-	transition: all .4s ease;
+.fa-angle-down {
+  transition: all .4s ease;
 }
-.active .fa-angle-down{
-	transform: rotate(180deg);
+.active .fa-angle-down {
+  transform: rotate(180deg);
 }
-.setcircle{
-	border-radius: 50%;
+.setcircle {
+  border-radius: 50%;
 }
-td{
-	word-break: break-all;
+td {
+  word-wrap: break-word;
 }

@@ -13,7 +13,6 @@ class Dataput extends CI_model
       'base_uri' => $this->config->item('server_url'),
       'auth'     => ['noericell', 'admindandangan'],
       'timeout'  => 3, // Response timeout
-      // 'connect_timeout' => 5, // Connection timeout
     ]);
     return $_client;
   }
@@ -62,7 +61,15 @@ class Dataput extends CI_model
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
       } else {
-        $result['message'] = 'server tidak menanggapi';
+        try {
+          $response = $_client->request('POST', 'transaksiadmin/hpin/alternateput',
+            [
+              'form_params' => $formparams,
+            ]);
+          $result['message'] = $this->getputresult($response);
+        } catch (RequestException $re) {
+          $result['message'] = $this->getputresult($re->getResponse());
+        }
       }
     }
     return $result;
@@ -82,7 +89,15 @@ class Dataput extends CI_model
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
       } else {
-        $result['message'] = 'server tidak menanggapi';
+        try {
+          $response = $_client->request('POST', 'transaksiadmin/hpout/alternateput',
+            [
+              'form_params' => $formparams,
+            ]);
+          $result['message'] = $this->getputresult($response);
+        } catch (RequestException $re) {
+          $result['message'] = $this->getputresult($re->getResponse());
+        }
       }
     }
     return $result;
@@ -102,7 +117,15 @@ class Dataput extends CI_model
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
       } else {
-        $result['message'] = 'server tidak menanggapi';
+        try {
+          $response = $_client->request('POST', 'transaksiadmin/servisout/alternateput',
+            [
+              'form_params' => $formparams,
+            ]);
+          $result['message'] = $this->getputresult($response);
+        } catch (RequestException $re) {
+          $result['message'] = $this->getputresult($re->getResponse());
+        }
       }
     }
     return $result;
@@ -122,7 +145,15 @@ class Dataput extends CI_model
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
       } else {
-        $result['message'] = 'server tidak menanggapi';
+        try {
+          $response = $_client->request('POST', 'transaksiadmin/servisreturn/alternateput',
+            [
+              'form_params' => $formparams,
+            ]);
+          $result['message'] = $this->getputresult($response);
+        } catch (RequestException $re) {
+          $result['message'] = $this->getputresult($re->getResponse());
+        }
       }
     }
     return $result;
@@ -142,7 +173,15 @@ class Dataput extends CI_model
       if ($re->hasResponse()) {
         $result['message'] = $re->getMessage();
       } else {
-        $result['message'] = 'server tidak menanggapi';
+        try {
+          $response = $_client->request('POST', 'transaksiadmin/accesoris/alternateput',
+            [
+              'form_params' => $formparams,
+            ]);
+          $result['message'] = $this->getputresult($response);
+        } catch (RequestException $re) {
+          $result['message'] = $this->getputresult($re->getResponse());
+        }
       }
     }
     return $result;

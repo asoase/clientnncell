@@ -241,7 +241,7 @@
 		<option value="hp dus cas" `+allselect.kelengkapan[1]+`>hp dus cas</option>
 		<option value="hp dus" `+allselect.kelengkapan[2]+`>hp dus</option>
 		<option value="hp cas" `+allselect.kelengkapan[3]+`>hp cas</option>
-		<option value="hp" `+allselect.kelengkapan[4]+`>hp</option>
+		<option value="hp" `+allselect.kelengkapan[4]+`>hp saja</option>
 		</select>
 		</div>
 		</div>
@@ -483,7 +483,7 @@
 		<option value="hp dus cas" `+allselect.kelengkapan[1]+`>hp dus cas</option>
 		<option value="hp dus" `+allselect.kelengkapan[2]+`>hp dus</option>
 		<option value="hp cas" `+allselect.kelengkapan[3]+`>hp cas</option>
-		<option value="hp" `+allselect.kelengkapan[4]+`>hp</option>
+		<option value="hp" `+allselect.kelengkapan[4]+`>hp saja</option>
 		</select>
 		</div>
 		</div>

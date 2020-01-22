@@ -14,7 +14,7 @@
   <?php foreach ($CSSPATHS as $csspatch) {?>
     <link rel="stylesheet" href="<?=$csspatch;?>">
   <?php }?>
-  <title><?=$title;?></title>
+  <title><?=$judul;?></title>
 </head>
 
 <body>

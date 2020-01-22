@@ -26,6 +26,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['base_url'] = 'http://localhost/clientnncell/';
 $config['server_url'] = 'http://localhost/servernncell/';
 
+// untuk virtualbox
+// $config['base_url'] = 'http://noericell.com/';
+// $config['server_url'] = 'http://noericellserver.com/';
+
 /*
 |--------------------------------------------------------------------------
 | Index File

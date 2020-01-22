@@ -5,7 +5,7 @@ use Resthttpcode\code\RESTHTTPCode;
 
 class Dataget extends CI_model
 {
-  public function createClient()
+  private function createClient()
   {
     $_client = new Client([
       'base_uri' => $this->config->item('server_url'),
@@ -14,7 +14,7 @@ class Dataget extends CI_model
     ]);
     return $_client;
   }
-  public function getquerybytanggal($tanggal)
+  private function getquerybytanggal($tanggal)
   {
     $query = [
       'query' => [
@@ -23,7 +23,7 @@ class Dataget extends CI_model
     ];
     return $query;
   }
-  public function getquerybyid($id)
+  private function getquerybyid($id)
   {
     $query = [
       'query' => [
@@ -35,12 +35,22 @@ class Dataget extends CI_model
   // $tipeitem
   // 0 = hp
   // 1 = servis
-  public function getquerymenu($tipeitem)
+  private function getquerymenu($tipeitem)
   {
     $query = [
       'query' => [
         'apikey'   => 'jamah',
         'tipeitem' => $tipeitem,
+      ],
+    ];
+    return $query;
+  }
+  private function getquerycari($keyword)
+  {
+    $query = [
+      'query' => [
+        'apikey'  => 'jamah',
+        'keyword' => $keyword,
       ],
     ];
     return $query;
@@ -206,7 +216,37 @@ class Dataget extends CI_model
 
   public function getCari($type = null, $key1 = null, $key2 = null, $key3 = null)
   {
-    return 'hasil cari';
+    $type = $this->getkeyword($type);
+    $key1 = $this->getkeyword($key1);
+    $key2 = $this->getkeyword($key2);
+    $key3 = $this->getkeyword($key3);
+
+    $keyword = array('tipe' => $type, 'kw1' => $key1, 'kw2' => $key2, 'kw3' => $key3);
+    $keyword = json_encode($keyword);
+    $_client = $this->createClient();
+    $query   = $this->getquerycari($keyword);
+    try {
+      $response = $_client->request('GET', 'transaksiadmin/cari/caridata', $query);
+      $result   = $this->getGetresult($response);
+    } catch (RequestException $re) {
+      if ($re->hasResponse()) {
+        $result = $this->getGetresult($re->getResponse());
+      } else {
+        $result = $this->getGetresult($re->getResponse());
+      }
+    }
+    return $result;
+  }
+
+  private function getkeyword($keyword)
+  {
+    if ($keyword == '_') {
+      $keyword = null;
+    } else {
+      $keyword = explode("_", $keyword);
+      $keyword = implode(" ", $keyword);
+    }
+    return $keyword;
   }
 
 }
